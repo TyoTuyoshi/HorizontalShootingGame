@@ -24,7 +24,7 @@ public class Ship : MonoBehaviour
         Danger, //50%以上破損
     }
 
-    public enum Action //行動
+    public enum State //行動
     {
         Idle, //アイドル
         Move, //移動
@@ -78,39 +78,75 @@ public class Ship : MonoBehaviour
     }
 
     [Header("艦種"),SerializeField] private Type ship_type; //艦船タイプ
-
     public Type ShipType //艦船タイププロパティ
     {
         set { ship_type = value; }
         get { return ship_type; }
     }
 
-    private GameObject ship; //艦 
-    private Rigidbody2D rbody;//艦用物理コンポーネント
-    private SpriteRenderer renderer;
-
-    private void Awake() //初期化
+    [Header("状態"), SerializeField] private State ship_state;//戦闘ステート
+    public State ShipState //状態プロパティ
     {
-        ship = this.gameObject;
+        set { ship_state = value; }
+        get { return ship_state; }
+    }
+
+    [System.NonSerialized] public GameObject KANSEN; //艦船
+    [System.NonSerialized] public SpriteRenderer Renderer;
+
+    //範囲制御
+    [System.Serializable]
+    public struct RangePos
+    {
+        public Vector2 MinPos;
+        public Vector2 MaxPos;
+    }
+    private RangePos move_range;
+    public RangePos Range
+    {
+        set { move_range = value; }
+        get { return move_range; }
+    }
+
+    private Rigidbody2D rbody;//艦用物理コンポーネント
+    
+    private void Awake()
+    {
+        //オブジェクト、コンポーネント等の初期化取得
+        KANSEN = this.gameObject;
         rbody = this.gameObject.GetComponent<Rigidbody2D>();
-        renderer = this.gameObject.GetComponent<SpriteRenderer>();
+        Renderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     //移動
-    public void Move(Vector2 pos, float speed,float rumble)
+    public void Move(Vector2 pos, float speed)
     {
+        ship_state = State.Move;
         const int coefficient = 3; //速力係数
         //ship.gameObject.transform.position +=
         //    new Vector3(pos.x, pos.y, 0) * coefficient * speed * Time.deltaTime;
         //rbody.MovePosition(pos * coefficient * speed * Time.deltaTime);
-        rbody.AddForce(pos * coefficient * speed * Time.deltaTime * rumble, ForceMode2D.Impulse);
-        ship.transform.position = PositionRange(ship.transform.position, new Vector2(-11, -6), new Vector2(0, 4.6f));
+        rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
+        KANSEN.transform.position = PositionRange(KANSEN.transform.position, move_range.MinPos, move_range.MaxPos);
+    }
+
+    //追従移動
+    public void MoveFollowing(Vector2 pos,float distance)
+    {
+        ship_state = State.Move;
+        const float speed = 2.0f;
+        //一定距離外であるときに追従
+        if (Vector2.Distance(pos, KANSEN.transform.position) > distance)
+        {
+            float present_pos = (Time.deltaTime * speed) / distance;
+            KANSEN.transform.position = Vector2.Lerp(KANSEN.transform.position, pos, present_pos);
+        }
     }
 
     //攻撃時前面表示
     protected void SortDrawOrder(bool can_attack)
     {
-        renderer.sortingOrder = (can_attack) ? 1 : 0;
+        Renderer.sortingOrder = (can_attack) ? 1 : 0;
     }
 
     //座標クランプ
@@ -122,10 +158,9 @@ public class Ship : MonoBehaviour
         return pos;
     }
 
-    public virtual void Bombardment(){ }//基底　砲撃メソッド
-    public virtual void TorpedoLaunch(){ }//基底　魚雷発射メソッド
-
-    public virtual void Airstrike(){ }//基底　空爆メソッド
+    public virtual void Bombardment() { ship_state = State.Battle;}//基底　砲撃メソッド
+    public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
+    public virtual void AirStrike(){ ship_state = State.Move; }//基底　空爆メソッド
 
 }
 

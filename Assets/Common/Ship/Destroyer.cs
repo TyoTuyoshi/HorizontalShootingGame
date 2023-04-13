@@ -36,18 +36,14 @@ public class Destroyer : Ship
         if (bom_time > Charge)
         {
             bom_time = 0;
-            //SortDrawOrder(true);
             Bombardment();
-        }
-        else
-        {
-            //SortDrawOrder(false);
         }
     }
 
     //砲撃
     public override void Bombardment()
     {
+        ShipState = Ship.State.Battle;
         Debug.Log(Name + ":こうげき！");
         if (CanonSource.CanContinous)
         {
