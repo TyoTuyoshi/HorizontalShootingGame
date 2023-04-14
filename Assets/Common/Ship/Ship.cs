@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Threading.Tasks;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
@@ -158,7 +159,9 @@ public class Ship : MonoBehaviour
         return pos;
     }
 
-    public virtual void Bombardment() { ship_state = State.Battle;}//基底　砲撃メソッド
+    public virtual IEnumerator Bombardment() { yield return null;}//基底　砲撃メソッド
+    public virtual async void Bombardment2() { }//基底　砲撃メソッド
+
     public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
     public virtual void AirStrike(){ ship_state = State.Move; }//基底　空爆メソッド
 

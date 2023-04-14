@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6780481475585120329}
   - component: {fileID: 3787016279162047544}
   - component: {fileID: 1061288571678038953}
+  - component: {fileID: 3949774902895727704}
   m_Layer: 0
   m_Name: Bom_A
   m_TagString: Untagged
@@ -121,5 +122,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanContinous: 1
   ContinuousCanon:
-    contisous: 5
+    contisous: 24
     power: 10
+--- !u!61 &3949774902895727704
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602914544939550671}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0021511316, y: -0.0016134381}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.24255729, y: 0.24578393}
+  m_EdgeRadius: 0

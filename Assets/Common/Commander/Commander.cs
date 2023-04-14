@@ -108,7 +108,9 @@ public class Commander : MonoBehaviour
 
         //艦隊の間隔がSin周期で変動(ユニークオプション)
         if (can_ramble)
-        { distance = 0.3f + (1.0f - Mathf.Abs(Mathf.Sin(time))); }
+        {
+            distance = 0.3f + (1.0f - Mathf.Abs(Mathf.Sin(time)));
+        }
     }
 
     //物理系コンポーネント更新
@@ -119,7 +121,9 @@ public class Commander : MonoBehaviour
         {
             //先頭艦のみ操作
             if (i == 0)
-            { KANTAI[i].Move(joystick_input, speed); }
+            {
+                KANTAI[i].Move(joystick_input, speed);
+            }
             else
             {
                 //任意の距離を設定し、その距離内であれば追従しない。距離を越えた場合追従を始める。
