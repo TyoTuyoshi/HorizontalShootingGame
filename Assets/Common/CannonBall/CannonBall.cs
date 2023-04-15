@@ -13,6 +13,7 @@ public class CannonBall : MonoBehaviour
         public int contisous;   //連続回数
         public int power;       //火力
     }
+    
     //距離減衰
     private int power_attenuation = 0;
     //連続砲撃可能スペック判断
@@ -23,13 +24,26 @@ public class CannonBall : MonoBehaviour
     //砲弾用物理コンポーネント
     private Rigidbody2D rbody;
     private SpriteRenderer renderer;
+
+    private Vector2 vec = Vector2.right; //進行方向
+    private float velocity = 1.0f;      //進行速度
+
+    private GameObject Bom;  //自身
     
-    private void Awake()
+    //砲弾の作成
+    public void Create(Vector2 vec,float velocity)
     {
-        renderer = this.gameObject.GetComponent<SpriteRenderer>();
-        rbody = this.gameObject.GetComponent<Rigidbody2D>();
+        this.vec = vec;
+        this.velocity = velocity;
     }
 
+    private void Awake()
+    {
+        Bom = this.gameObject;
+        renderer = Bom.GetComponent<SpriteRenderer>();
+        rbody = Bom.GetComponent<Rigidbody2D>();
+    }
+    
     private void Update()
     {
         if (!renderer.isVisible)
@@ -38,6 +52,7 @@ public class CannonBall : MonoBehaviour
         }
     }
 
+    //物理コンポーネント更新
     private void FixedUpdate()
     {
         UpdateGame();
@@ -46,8 +61,26 @@ public class CannonBall : MonoBehaviour
     //更新
     private void UpdateGame()
     {
-        rbody.MovePosition(transform.position + new Vector3(0.025f, 0, 0) * Time.fixedTime);
+        rbody.MovePosition(transform.position + velocity * new Vector3(vec.x, vec.y, 0) * Time.deltaTime);
+        //rbody.AddForce(vec * velocity);
     }
+
+    //砲弾の運動(移動)
+    //->Create()へ以降
+    //public void FlyBom(Vector2 vec,float velocity)
+    //{
+    //    vec = vec.normalized;
+    //    //rbody.MovePosition(transform.position + new Vector3(0.025f, 0, 0) * Time.fixedTime);
+    //    rbody.AddForce(vec * velocity,ForceMode.Imp);
+    //}
+    
+    public void FlyBom(Vector3 vec,Vector3 velocity)
+    {
+        vec = vec.normalized;
+        //rbody.MovePosition(transform.position + new Vector3(0.025f, 0, 0) * Time.fixedTime);
+        //rbody.AddForce(vec * velocity);
+    }
+
 
     //砲撃向き設定
     public void SetDirection(Vector2 direction)

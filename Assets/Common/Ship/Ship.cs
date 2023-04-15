@@ -92,7 +92,7 @@ public class Ship : MonoBehaviour
         get { return ship_state; }
     }
 
-    [System.NonSerialized] public GameObject KANSEN; //艦船
+    private GameObject KANSEN; //艦船
     [System.NonSerialized] public SpriteRenderer Renderer;
 
     //範囲制御
@@ -122,11 +122,8 @@ public class Ship : MonoBehaviour
     //移動
     public void Move(Vector2 pos, float speed)
     {
-        ship_state = State.Move;
+        //ship_state = State.Move;
         const int coefficient = 3; //速力係数
-        //ship.gameObject.transform.position +=
-        //    new Vector3(pos.x, pos.y, 0) * coefficient * speed * Time.deltaTime;
-        //rbody.MovePosition(pos * coefficient * speed * Time.deltaTime);
         rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
         KANSEN.transform.position = PositionRange(KANSEN.transform.position, move_range.MinPos, move_range.MaxPos);
     }
@@ -134,7 +131,7 @@ public class Ship : MonoBehaviour
     //追従移動
     public void MoveFollowing(Vector2 pos,float distance)
     {
-        ship_state = State.Move;
+        //ship_state = State.Move;
         const float speed = 2.0f;
         //一定距離外であるときに追従
         if (Vector2.Distance(pos, KANSEN.transform.position) > distance)
@@ -142,6 +139,11 @@ public class Ship : MonoBehaviour
             float present_pos = (Time.deltaTime * speed) / distance;
             KANSEN.transform.position = Vector2.Lerp(KANSEN.transform.position, pos, present_pos);
         }
+    }
+
+    public void Destory()
+    {
+        UnityEngine.Object.Destroy(this.gameObject);
     }
 
     //攻撃時前面表示

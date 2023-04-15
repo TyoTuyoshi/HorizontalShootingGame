@@ -49,13 +49,13 @@ public class Commander : MonoBehaviour
     //操作入力
     private void ProcessInput()
     {
-        //joystick_input.x = Input.GetAxis("Horizontal");
-        //joystick_input.y = Input.GetAxis("Vertical");
         joystick_input = Gamepad.current.leftStick.ReadValue();
     }
 
     //破棄対象のオブジェクトリスト
-    private List<GameObject> disposal_list = new List<GameObject>();
+    //private List<GameObject> disposal_list = new List<GameObject>();
+    private List<Ship> disposal_list = new List<Ship>();
+
     
     //ゲーム更新
     private void UpdateGame()
@@ -77,7 +77,8 @@ public class Commander : MonoBehaviour
             if (KANTAI[i].ShipState == Ship.State.Sunk)
             {
                 //破棄リスト送り
-                disposal_list.Add(KANTAI[i].KANSEN);
+                //disposal_list.Add(KANTAI[i].KANSEN);
+                disposal_list.Add(KANTAI[i]);
                 KANTAI.Remove(KANTAI[i]);
             }
         }
@@ -136,7 +137,10 @@ public class Commander : MonoBehaviour
     private void DestoryObject()
     {
         foreach (var disp_obj in disposal_list)
-        { Destroy(disp_obj); }
+        {
+            //Destroy(disp_obj);
+            disp_obj.Destory();
+        }
         disposal_list.Clear();
     }
     

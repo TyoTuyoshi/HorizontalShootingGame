@@ -162,20 +162,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 255259361}
     m_ColliderPaths:
-    - - X: 6920169
-        Y: 58742064
-      - X: -139369072
-        Y: 59026212
-      - X: -137761264
-        Y: -57775496
-      - X: 7661612
-        Y: -58336624
+    - - X: 6000000
+        Y: 60000000
+      - X: -130000000
+        Y: 60000000
+      - X: -130000000
+        Y: -60000000
+      - X: 6000000
+        Y: -60000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.7661315, y: -5.8336625}
-      - {x: 0.69198793, y: 5.8742065}
-      - {x: -13.936908, y: 5.902591}
-      - {x: -13.776097, y: -5.7775497}
+    - - {x: 0.5999707, y: -6}
+      - {x: 0.5999707, y: 6}
+      - {x: -13, y: 5.999971}
+      - {x: -12.99997, y: -6}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &255259360
@@ -224,10 +224,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.69201696, y: 5.8742065}
-      - {x: -13.936908, y: 5.9026213}
-      - {x: -13.776127, y: -5.7775497}
-      - {x: 0.76616126, y: -5.8336625}
+    - - {x: 0.6, y: 6}
+      - {x: -13, y: 6}
+      - {x: -13, y: -6}
+      - {x: 0.6, y: -6}
 --- !u!4 &255259362
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324499699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.089387655, y: 0.62, z: -10}
+  m_LocalPosition: {x: -0.09022951, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -908,7 +908,7 @@ MonoBehaviour:
   name: Herena
   ship_type: 0
   ship_state: 0
-  Canon: {fileID: 4602914544939550671, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
+  cannon_ball: {fileID: 1061288571678038953, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
 --- !u!212 &1147477590
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1876,7 +1876,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814683741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.089387655, y: 0.62, z: -10}
+  m_LocalPosition: {x: -0.09022951, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2107,7 +2107,7 @@ MonoBehaviour:
   name: Ayanami
   ship_type: 0
   ship_state: 0
-  Canon: {fileID: 4602914544939550671, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
+  cannon_ball: {fileID: 1061288571678038953, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
 --- !u!50 &2104145124
 Rigidbody2D:
   serializedVersion: 4
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   name: oigain
   ship_type: 0
   ship_state: 0
-  Canon: {fileID: 4602914544939550671, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
+  cannon_ball: {fileID: 1061288571678038953, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
 --- !u!212 &2131472423
 SpriteRenderer:
   m_ObjectHideFlags: 0

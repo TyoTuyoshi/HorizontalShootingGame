@@ -9,22 +9,20 @@ using UnityEngine;
 public class Destroyer : Ship
 {
     //砲撃する砲弾
-    public GameObject Canon;
-    private CannonBall CanonSource;
-    
+    [SerializeField] private CannonBall cannon_ball;
+
     private void Start()
     {
         InitStatus();
-        CanonSource = Canon.GetComponent<CannonBall>();
     }
 
     //ステータス初期化
     private void InitStatus()
     {
-        //Debug.Log(ShipType.GetHashCode());
     }
 
-    private float bom_time = 0.0f;//砲撃間隔カウンタ
+    private float bom_time = 0.0f; //砲撃間隔カウンタ
+
     private void Update()
     {
         UpdateGame();
@@ -39,63 +37,35 @@ public class Destroyer : Ship
         {
             bom_time = 0;
             StartCoroutine(Bombardment());
-            //Bombardment2();
         }
     }
 
-    //砲撃
+    //砲撃(砲弾オブジェクト配置)
     public override IEnumerator Bombardment()
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":こうげき！");
-        if (CanonSource.CanContinous)
-        {
-            for (int i = 0; i <= CanonSource.ContinuousCanon.contisous; i++)
-            {
-                yield return new WaitForSecondsRealtime(0.1f);
-                
-                var canon_ball = Instantiate(Canon) as GameObject;
-                canon_ball.transform.position =
-                    this.gameObject.transform.position +
-                    new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15),0);
-                
-                canon_ball = Instantiate(Canon) as GameObject;
-                canon_ball.transform.position =
-                    this.gameObject.transform.position +
-                    new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15),0);
-                
-                //new Vector3(Mathf.Cos(2 * Mathf.PI / 180 * (i * 45)), Mathf.Sin(2 * Mathf.PI / 180 * (i * 10)), 0);
-            }
-        }
-        else
-        {
-        }
-    }
-    
-    public override async void Bombardment2()
-    {
-        ShipState = Ship.State.Battle;
-        Debug.Log(Name + ":こうげき！");
-        if (CanonSource.CanContinous)
-        {
-            for (int i = 0; i <= CanonSource.ContinuousCanon.contisous; i++)
-            {
-                
-                var canon_ball = Instantiate(Canon) as GameObject;
-                canon_ball.transform.position =
-                    this.gameObject.transform.position +
-                    new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15),0);
-                await Task.Delay(10);
-                canon_ball = Instantiate(Canon) as GameObject;
-                canon_ball.transform.position =
-                    this.gameObject.transform.position +
-                    new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15),0);
-                
-                //new Vector3(Mathf.Cos(2 * Mathf.PI / 180 * (i * 45)), Mathf.Sin(2 * Mathf.PI / 180 * (i * 10)), 0);
-            }
-        }
-    }
 
+        for (int i = 0; i <= cannon_ball.ContinuousCanon.contisous; i++)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            Debug.Log(Name + ":発射!");
+            var ball = Instantiate(cannon_ball) as CannonBall;
+            ball.Create(new Vector2(2, 0), 1);
+            //砲弾配置(弾幕生成)
+            ball.transform.position =
+                this.gameObject.transform.position +
+                new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15), 0);
+
+            ball = Instantiate(cannon_ball) as CannonBall;
+            ball.Create(new Vector2(2, 0), 20);
+            //砲弾配置(弾幕生成)
+            ball.transform.position =
+                this.gameObject.transform.position +
+                new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15), 0);
+        }
+    }
 
     //魚雷攻撃
     public override void TorpedoLaunch()
