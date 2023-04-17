@@ -44,22 +44,22 @@ public class Destroyer : Ship
     public override IEnumerator Bombardment()
     {
         ShipState = Ship.State.Battle;
-        Debug.Log(Name + ":こうげき！");
+        Debug.Log(Name + ":発射!");
 
-        for (int i = 0; i <= cannon_ball.ContinuousCanon.contisous; i++)
+        for (int i = 0; i < cannon_ball.ContinuousCanon.contisous; i++)
         {
             yield return new WaitForSecondsRealtime(0.1f);
 
-            Debug.Log(Name + ":発射!");
             var ball = Instantiate(cannon_ball) as CannonBall;
-            ball.Create(new Vector2(2, 0), 1);
+            ball.Create(new Vector2(2, 2 * Mathf.Sin(i / (cannon_ball.ContinuousCanon.contisous - 1) * Mathf.PI)), 10);
             //砲弾配置(弾幕生成)
             ball.transform.position =
                 this.gameObject.transform.position +
                 new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15), 0);
 
             ball = Instantiate(cannon_ball) as CannonBall;
-            ball.Create(new Vector2(2, 0), 20);
+            ball.Create(new Vector2(2, 2 * Mathf.Sin(i / (cannon_ball.ContinuousCanon.contisous - 1) * Mathf.PI)), 10);
+
             //砲弾配置(弾幕生成)
             ball.transform.position =
                 this.gameObject.transform.position +

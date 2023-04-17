@@ -8,6 +8,15 @@ using System.Threading.Tasks;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    //敵扱いフラグ
+    //falseなら味方　trueなら敵
+    [SerializeField] private bool is_enemy = false;
+    public bool IsEnemy //敵扱いフラグプロパティ
+    {
+        set { is_enemy = value; }
+        get { return is_enemy; }
+    }
+
     public enum Type //艦船タイプ
     {
         Destroyer, //駆逐艦
@@ -119,12 +128,29 @@ public class Ship : MonoBehaviour
         Renderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
+    private void Update()
+    {
+        UpdateGame();
+    }
+
+    //更新
+    private void UpdateGame()
+    {
+        //耐久値の監視(撃沈)
+        if (durable <= 0)
+        {
+            durable = 0;
+            ship_state = State.Sunk;
+        }
+    }
+
     //移動
     public void Move(Vector2 pos, float speed)
     {
         //ship_state = State.Move;
-        const int coefficient = 3; //速力係数
-        rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
+        const float coefficient = 1.5f; //速力係数
+        rbody.MovePosition(KANSEN.transform.position + (Vector3)pos * coefficient * speed * Time.fixedDeltaTime);
+        //rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
         KANSEN.transform.position = PositionRange(KANSEN.transform.position, move_range.MinPos, move_range.MaxPos);
     }
 
@@ -132,7 +158,7 @@ public class Ship : MonoBehaviour
     public void MoveFollowing(Vector2 pos,float distance)
     {
         //ship_state = State.Move;
-        const float speed = 2.0f;
+        const float speed = 1.5f;
         //一定距離外であるときに追従
         if (Vector2.Distance(pos, KANSEN.transform.position) > distance)
         {
@@ -167,6 +193,26 @@ public class Ship : MonoBehaviour
     public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
     public virtual void AirStrike(){ ship_state = State.Move; }//基底　空爆メソッド
 
+    public void OnTriggerEnter(Collider other)
+    {
+        //ダメージ判定
+        HitDamage(other);
+    }
+    
+    //ダメージ判定
+    private void HitDamage(Collider other)
+    {
+        //味方目線 ダメージ判定
+        if (other.CompareTag("Enemy") && is_enemy)
+        {
+            //durable -= ;
+        }
+        //敵目線　ダメージ判定
+        else if (other.CompareTag("Player") && !is_enemy)
+        {
+            
+        }
+    }
 }
 
 #if UNITY_EDITOR
