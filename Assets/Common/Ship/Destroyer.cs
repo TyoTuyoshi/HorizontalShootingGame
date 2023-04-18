@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 using UnityEngine;
 
@@ -9,8 +7,11 @@ using UnityEngine;
 public class Destroyer : Ship
 {
     //砲撃する砲弾
-    [SerializeField] private CannonBall cannon_ball;
-
+    [SerializeField] private CannonBall[] cannon_ball;
+    
+    //砲撃間隔カウンタ
+    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
+    private float[] bom_time = {0, 0, 0};
     private void Start()
     {
         InitStatus();
@@ -19,9 +20,13 @@ public class Destroyer : Ship
     //ステータス初期化
     private void InitStatus()
     {
+        /*
+        if (!is_unique)
+        {
+            //固有弾幕装填時間は"装填時間x5"を基本にする。
+            UniqueCharge *= 5;
+        }*/
     }
-
-    private float bom_time = 0.0f; //砲撃間隔カウンタ
 
     private void Update()
     {
@@ -31,39 +36,68 @@ public class Destroyer : Ship
     //ゲーム更新
     private void UpdateGame()
     {
-        //砲撃間隔
-        bom_time += Time.deltaTime;
-        if (bom_time > Charge)
+        //砲撃時間の加算
+        bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
+        
+        //通常砲撃
+        if (bom_time[0] > Charge)
         {
-            bom_time = 0;
+            bom_time[0] = 0;
             StartCoroutine(Bombardment());
+        }
+        
+        //固有砲撃
+        if (bom_time[1] > UniqueCharge)
+        {
+            bom_time[1] = 0;
+            StartCoroutine(Bombardment_CrossCos());
         }
     }
 
-    //砲撃(砲弾オブジェクト配置)
+    //通常砲撃(砲弾オブジェクト配置) 6連砲
     public override IEnumerator Bombardment()
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":発射!");
+        //発射開始時の位置
+        Vector2 set_pos = new Vector2();
 
-        for (int i = 0; i < cannon_ball.ContinuousCanon.contisous; i++)
+        for (int i = 0; i < 6; i++)
         {
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.05f);
+            if (i == 0)
+            {
+                set_pos = this.gameObject.transform.position;
+            }
+            var ball = Instantiate(cannon_ball[0]) as CannonBall;
+            ball.Create(new Vector2(2, 0), 10);
+            //砲弾配置(弾幕生成)
+            ball.transform.position = set_pos;
+        }
+    }
 
-            var ball = Instantiate(cannon_ball) as CannonBall;
-            ball.Create(new Vector2(2, 2 * Mathf.Sin(i / (cannon_ball.ContinuousCanon.contisous - 1) * Mathf.PI)), 10);
+    //二連Cos波形連続砲撃(固有弾幕)
+    private IEnumerator Bombardment_CrossCos()
+    {
+        ShipState = Ship.State.Battle;
+        Debug.Log(Name + ":固有弾幕展開!");
+        for (int i = 0; i < cannon_ball[0].ContinuousCanon.contisous; i++)
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+
+            var ball = Instantiate(cannon_ball[0]) as CannonBall;
+            ball.Create(new Vector2(2, 2 / (i + 1)), 10);
             //砲弾配置(弾幕生成)
             ball.transform.position =
                 this.gameObject.transform.position +
-                new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15), 0);
+                new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15));
 
-            ball = Instantiate(cannon_ball) as CannonBall;
-            ball.Create(new Vector2(2, 2 * Mathf.Sin(i / (cannon_ball.ContinuousCanon.contisous - 1) * Mathf.PI)), 10);
-
+            ball = Instantiate(cannon_ball[0]) as CannonBall;
+            ball.Create(new Vector2(2, -2 / (i + 1)), 10);
             //砲弾配置(弾幕生成)
             ball.transform.position =
                 this.gameObject.transform.position +
-                new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15), 0);
+                new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15));
         }
     }
 

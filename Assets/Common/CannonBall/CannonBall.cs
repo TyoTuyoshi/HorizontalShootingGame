@@ -23,7 +23,15 @@ public class CannonBall : MonoBehaviour
 
     //砲弾用物理コンポーネント
     private Rigidbody2D rbody;
+
+    //外装変更用
     private SpriteRenderer renderer;
+    public SpriteRenderer Renderer
+    {
+        set { renderer = value; }
+        get { return renderer; }
+    }
+
 
     private Vector2 vec = Vector2.right; //進行方向
     private float velocity = 1.0f;      //進行速度

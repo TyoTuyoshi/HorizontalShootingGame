@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.Threading.Tasks;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
@@ -100,6 +97,14 @@ public class Ship : MonoBehaviour
         set { ship_state = value; }
         get { return ship_state; }
     }
+    
+    [Header("固有弾幕時間手動有効"), SerializeField] private bool is_unique = false;
+    [Header("固有弾幕装填時間"), SerializeField] private int unique_charge = 0;
+    public int UniqueCharge//固有弾幕装填時間
+    {
+        set { unique_charge = value; }
+        get { return unique_charge; }
+    }
 
     private GameObject KANSEN; //艦船
     [System.NonSerialized] public SpriteRenderer Renderer;
@@ -126,7 +131,16 @@ public class Ship : MonoBehaviour
         KANSEN = this.gameObject;
         rbody = this.gameObject.GetComponent<Rigidbody2D>();
         Renderer = this.gameObject.GetComponent<SpriteRenderer>();
+
+        if (!is_unique)
+        {
+            UniqueCharge *= 5;
+        }
     }
+    
+    //砲撃間隔カウンタ
+    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
+    private float[] bom_time = {0, 0, 0};
 
     private void Update()
     {
@@ -167,6 +181,7 @@ public class Ship : MonoBehaviour
         }
     }
 
+    //破棄
     public void Destory()
     {
         UnityEngine.Object.Destroy(this.gameObject);
