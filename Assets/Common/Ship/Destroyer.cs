@@ -20,12 +20,7 @@ public class Destroyer : Ship
     //ステータス初期化
     private void InitStatus()
     {
-        /*
-        if (!is_unique)
-        {
-            //固有弾幕装填時間は"装填時間x5"を基本にする。
-            UniqueCharge *= 5;
-        }*/
+       
     }
 
     private void Update()
@@ -43,38 +38,19 @@ public class Destroyer : Ship
         if (bom_time[0] > Charge)
         {
             bom_time[0] = 0;
-            StartCoroutine(Bombardment());
+            //通常砲撃(砲弾オブジェクト配置) 6連砲
+            StartCoroutine(Bombardment(cannon_ball[0], 6));
         }
         
         //固有砲撃
         if (bom_time[1] > UniqueCharge)
         {
             bom_time[1] = 0;
+            //固有弾幕展開
             StartCoroutine(Bombardment_CrossCos());
         }
     }
 
-    //通常砲撃(砲弾オブジェクト配置) 6連砲
-    public override IEnumerator Bombardment()
-    {
-        ShipState = Ship.State.Battle;
-        Debug.Log(Name + ":発射!");
-        //発射開始時の位置
-        Vector2 set_pos = new Vector2();
-
-        for (int i = 0; i < 6; i++)
-        {
-            yield return new WaitForSecondsRealtime(0.05f);
-            if (i == 0)
-            {
-                set_pos = this.gameObject.transform.position;
-            }
-            var ball = Instantiate(cannon_ball[0]) as CannonBall;
-            ball.Create(new Vector2(2, 0), 10);
-            //砲弾配置(弾幕生成)
-            ball.transform.position = set_pos;
-        }
-    }
 
     //二連Cos波形連続砲撃(固有弾幕)
     private IEnumerator Bombardment_CrossCos()

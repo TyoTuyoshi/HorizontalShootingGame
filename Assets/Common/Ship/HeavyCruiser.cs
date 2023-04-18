@@ -6,8 +6,8 @@ using UnityEngine;
 public class HeavyCruiser : Ship
 {
     //砲撃
-    public override IEnumerator Bombardment()
-    {
-        yield return null;
-    }
+    //public override IEnumerator Bombardment()
+    //{
+    //    yield return null;
+    //}
 }

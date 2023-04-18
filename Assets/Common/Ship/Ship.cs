@@ -202,7 +202,32 @@ public class Ship : MonoBehaviour
         return pos;
     }
 
-    public virtual IEnumerator Bombardment() { yield return null;}//基底　砲撃メソッド
+    //基底　砲撃メソッド
+    //public virtual IEnumerator Bombardment() { yield return null;}
+    
+    //通常砲撃メソッド(連続砲撃)
+    public IEnumerator Bombardment(CannonBall cannon_ball, int contisous)
+    {
+        ShipState = Ship.State.Battle;
+        Debug.Log(Name + ":発射!");
+        //発射開始時の位置
+        Vector2 set_pos = new Vector2();
+
+        for (int i = 0; i < contisous; i++)
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            if (i == 0)
+            {
+                set_pos = this.gameObject.transform.position;
+            }
+
+            var ball = Instantiate(cannon_ball) as CannonBall;
+            ball.Create(new Vector2(2, 0), 10);
+            //砲弾配置(弾幕生成)
+            ball.transform.position = set_pos;
+        }
+    }
+
     public virtual async void Bombardment2() { }//基底　砲撃メソッド
 
     public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
