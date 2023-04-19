@@ -206,7 +206,7 @@ public class Ship : MonoBehaviour
     //public virtual IEnumerator Bombardment() { yield return null;}
     
     //通常砲撃メソッド(連続砲撃)
-    public IEnumerator Bombardment(CannonBall cannon_ball, int contisous)
+    public IEnumerator Bombardment(CannonBall cannon_ball, int contisous, float interval)
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":発射!");
@@ -215,7 +215,7 @@ public class Ship : MonoBehaviour
 
         for (int i = 0; i < contisous; i++)
         {
-            yield return new WaitForSecondsRealtime(0.05f);
+            yield return new WaitForSecondsRealtime(interval);
             if (i == 0)
             {
                 set_pos = this.gameObject.transform.position;
@@ -223,6 +223,7 @@ public class Ship : MonoBehaviour
 
             var ball = Instantiate(cannon_ball) as CannonBall;
             ball.Create(new Vector2(2, 0), 10);
+            //ball.transform.LookAt(new Vector3(200, 300),Vector3.right);
             //砲弾配置(弾幕生成)
             ball.transform.position = set_pos;
         }

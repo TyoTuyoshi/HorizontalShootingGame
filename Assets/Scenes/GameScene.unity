@@ -432,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324499699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08888888, y: 0.62, z: -10}
+  m_LocalPosition: {x: -0.089387655, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -848,6 +848,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KANTAI:
   - {fileID: 2104145123}
+  - {fileID: 1147477593}
+  - {fileID: 2131472426}
   distance: 0.75
   can_ramble: 1
   range:
@@ -878,38 +880,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1147477591}
   - component: {fileID: 1147477590}
-  - component: {fileID: 1147477589}
   - component: {fileID: 1147477592}
+  - component: {fileID: 1147477593}
   m_Layer: 0
   m_Name: Ship2_LightCruiser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1147477589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147477588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a369d49705ce6e43819fe9f793ebaef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  is_enemy: 0
-  durable: 800
-  charge: 2
-  power: 400
-  avoidance: 0
-  name: Herena
-  ship_type: 1
-  ship_state: 0
-  is_unique: 0
-  unique_charge: 0
-  cannon_ball: []
+  m_IsActive: 1
 --- !u!212 &1147477590
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -998,6 +977,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1147477593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147477588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b1062c1cf0f154ca8ab8182c3fb167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_enemy: 0
+  durable: 0
+  charge: 0
+  power: 0
+  avoidance: 0
+  name: 
+  ship_type: 0
+  ship_state: 0
+  is_unique: 0
+  unique_charge: 0
 --- !u!1 &1189523047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +1878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814683741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08888888, y: 0.62, z: -10}
+  m_LocalPosition: {x: -0.089387655, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2144,38 +2145,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2131472424}
   - component: {fileID: 2131472423}
-  - component: {fileID: 2131472422}
   - component: {fileID: 2131472425}
+  - component: {fileID: 2131472426}
   m_Layer: 0
   m_Name: Ship3_HeavyCruiser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2131472422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131472421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a369d49705ce6e43819fe9f793ebaef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  is_enemy: 0
-  durable: 800
-  charge: 4
-  power: 400
-  avoidance: 0
-  name: oigain
-  ship_type: 2
-  ship_state: 0
-  is_unique: 0
-  unique_charge: 0
-  cannon_ball: []
+  m_IsActive: 1
 --- !u!212 &2131472423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2264,3 +2242,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2131472426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131472421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_enemy: 0
+  durable: 800
+  charge: 4
+  power: 400
+  avoidance: 0
+  name: oigain
+  ship_type: 2
+  ship_state: 0
+  is_unique: 1
+  unique_charge: 6
+  cannon_ball:
+  - {fileID: 1061288571678038953, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}

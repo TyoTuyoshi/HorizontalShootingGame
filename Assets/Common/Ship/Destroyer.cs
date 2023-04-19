@@ -39,7 +39,7 @@ public class Destroyer : Ship
         {
             bom_time[0] = 0;
             //通常砲撃(砲弾オブジェクト配置) 6連砲
-            StartCoroutine(Bombardment(cannon_ball[0], 6));
+            StartCoroutine(Bombardment(cannon_ball[0], 6, 0.05f));
         }
         
         //固有砲撃
@@ -50,8 +50,7 @@ public class Destroyer : Ship
             StartCoroutine(Bombardment_CrossCos());
         }
     }
-
-
+    
     //二連Cos波形連続砲撃(固有弾幕)
     private IEnumerator Bombardment_CrossCos()
     {
