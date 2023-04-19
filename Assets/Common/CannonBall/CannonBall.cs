@@ -32,12 +32,21 @@ public class CannonBall : MonoBehaviour
         get { return renderer; }
     }
 
-
     private Vector2 vec = Vector2.right; //進行方向
+    public Vector2 Vec
+    {
+        set { vec = value; }
+        get { return vec; }
+    }
     private float velocity = 1.0f;      //進行速度
 
+    public float Velocity
+    {
+        set { velocity = value; }
+        get { return velocity; }
+    }
+
     private GameObject Bom;  //自身
-    
     //砲弾の作成
     public void Create(Vector2 vec,float velocity)
     {
@@ -61,25 +70,11 @@ public class CannonBall : MonoBehaviour
         }
     }
 
-    //物理コンポーネント更新
-    private void FixedUpdate()
-    {
-        UpdateGame();
-    }
-
-    //更新
-    private void UpdateGame()
-    {
-        rbody.MovePosition(transform.position + velocity * (Vector3)vec * Time.deltaTime);
-        //rbody.AddForce(vec * velocity);
-    }
-
     //砲弾の運動(移動)
     public void FlyBom(Vector2 vec,float velocity)
     {
         vec = vec.normalized;
-        //rbody.MovePosition(transform.position + new Vector3(0.025f, 0, 0) * Time.fixedTime);
-        //rbody.AddForce(vec * velocity);
+        rbody.MovePosition(transform.position + (Vector3)vec * velocity * Time.deltaTime);
     }
     
     //砲撃向き設定

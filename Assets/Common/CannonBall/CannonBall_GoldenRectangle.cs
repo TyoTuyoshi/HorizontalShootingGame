@@ -13,7 +13,6 @@ public class CannonBall_GoldenRectangle : CannonBall
     private Vector2 pos = new Vector2();
     private float velocity = 0.0f;
 
-    
     /// <summary>
     /// 砲弾作成セットアップ
     /// </summary>
@@ -31,9 +30,21 @@ public class CannonBall_GoldenRectangle : CannonBall
         UpdateGame();
     }
 
+    private float rad = 1.0f;
+    private float time =0.0f;
+
     //更新
     private void UpdateGame()
     {
-        
+        time += 0.001f;
+        if ((int)time % 3 == 0)
+        {
+            rad *= 1.618f;
+            time++;
+        }
+
+        Debug.Log(time);
+        this.gameObject.transform.position = new Vector3(Mathf.Cos(time / 6 * Mathf.PI),
+            Mathf.Sin(time / 6 * Mathf.PI)) * rad;
     }
 }
