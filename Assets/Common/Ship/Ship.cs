@@ -5,6 +5,8 @@ using UnityEditor;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    [SerializeField] protected GameObject target;
+
     //敵扱いフラグ
     //falseなら味方　trueなら敵
     [SerializeField] private bool is_enemy = false;
@@ -210,22 +212,17 @@ public class Ship : MonoBehaviour
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":発射!");
-        //発射開始時の位置
-        Vector2 set_pos = new Vector2();
 
         for (int i = 0; i < contisous; i++)
         {
             yield return new WaitForSecondsRealtime(interval);
-            if (i == 0)
-            {
-                set_pos = this.gameObject.transform.position;
-            }
+            var ball = Instantiate(cannon_ball) as CannonBall_Normal;
+            ball.target = target.transform.position - this.gameObject.transform.position;
 
-            var ball = Instantiate(cannon_ball) as CannonBall;
-            ball.Create(new Vector2(2, 0), 10);
+            //ball.Create(new Vector2(0, 0), 10);
             //ball.transform.LookAt(new Vector3(200, 300),Vector3.right);
             //砲弾配置(弾幕生成)
-            ball.transform.position = set_pos;
+            ball.transform.position = transform.position;;
         }
     }
 

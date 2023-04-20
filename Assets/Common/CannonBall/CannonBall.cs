@@ -22,7 +22,7 @@ public class CannonBall : MonoBehaviour
     public ContinuousAttack ContinuousCanon;
 
     //砲弾用物理コンポーネント
-    private Rigidbody2D rbody;
+    protected Rigidbody2D rbody;
 
     //外装変更用
     private SpriteRenderer renderer;
@@ -70,13 +70,6 @@ public class CannonBall : MonoBehaviour
         }
     }
 
-    //砲弾の運動(移動)
-    public void FlyBom(Vector2 vec,float velocity)
-    {
-        vec = vec.normalized;
-        rbody.MovePosition(transform.position + (Vector3)vec * velocity * Time.deltaTime);
-    }
-    
     //砲撃向き設定
     public void SetDirection(Vector2 direction)
     {

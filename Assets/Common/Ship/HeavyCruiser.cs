@@ -47,6 +47,7 @@ public class HeavyCruiser : Ship
         {
             bom_time[1] = 0;
             //固有弾幕展開
+            //Bombardment_GoldenRectangle();
             StartCoroutine(Bombardment_GoldenRectangle());
         }
     }
@@ -57,22 +58,15 @@ public class HeavyCruiser : Ship
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
-        //for (int i = 0; i < cannon_ball[0].ContinuousCanon.contisous; i++)
-        //{
+        
+        //砲弾配置(弾幕生成)
+        for (int i = 0; i < cannon_ball[1].ContinuousCanon.contisous; i++)
+        {
             yield return new WaitForSecondsRealtime(0.05f);
-        //    var ball = Instantiate(cannon_ball[0]) as CannonBall;
-        //    ball.Create(new Vector2(2, 2 / (i + 1)), 10);
-        //    //砲弾配置(弾幕生成)
-        //    ball.transform.position =
-        //        this.gameObject.transform.position +
-        //        new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15));
-        //    ball = Instantiate(cannon_ball[0]) as CannonBall;
-        //    ball.Create(new Vector2(2, -2 / (i + 1)), 10);
-        //    //砲弾配置(弾幕生成)
-        //    ball.transform.position =
-        //        this.gameObject.transform.position +
-        //        new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15));
-        //}
+            var ball = Instantiate(cannon_ball[1]) as CannonBall_GoldenRectangle;
+            Debug.Log(this.gameObject.transform.position);
+            ball.Create2(this.gameObject.transform.position, 1);
+        }
     }
 
     //魚雷攻撃

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CannonBall_Normal : CannonBall
 {
+    public Vector2 target;
+
     //物理コンポーネント更新
     private void FixedUpdate()
     {
@@ -12,6 +14,13 @@ public class CannonBall_Normal : CannonBall
     //更新
     private void UpdateGame()
     {
-        FlyBom(new Vector2(6, 3).normalized, 10.0f);
+        FlyBom(target.normalized, 10.0f);
+    }
+    
+    //砲弾の運動(移動)
+    private void FlyBom(Vector2 vec,float velocity)
+    {
+        vec = vec.normalized;
+        rbody.MovePosition(transform.position + (Vector3)vec * velocity * Time.deltaTime);
     }
 }

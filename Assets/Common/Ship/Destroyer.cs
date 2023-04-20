@@ -8,6 +8,7 @@ public class Destroyer : Ship
 {
     //砲撃する砲弾
     [SerializeField] private CannonBall[] cannon_ball;
+
     
     //砲撃間隔カウンタ
     //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
@@ -56,22 +57,28 @@ public class Destroyer : Ship
     {
         ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
+        //発射時の座標
+        Vector3 set_pos = transform.position;
         for (int i = 0; i < cannon_ball[0].ContinuousCanon.contisous; i++)
         {
             yield return new WaitForSecondsRealtime(0.05f);
 
-            var ball = Instantiate(cannon_ball[0]) as CannonBall;
-            ball.Create(new Vector2(2, 2 / (i + 1)), 10);
+            var ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
+            ball.target = Vector2.right;
+
+            //ball.Create(new Vector2(2, 0), 10);
             //砲弾配置(弾幕生成)
             ball.transform.position =
-                this.gameObject.transform.position +
+                set_pos +
                 new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15));
 
-            ball = Instantiate(cannon_ball[0]) as CannonBall;
-            ball.Create(new Vector2(2, -2 / (i + 1)), 10);
+            ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
+            ball.target = Vector2.right;
+
+            //ball.Create(new Vector2(2, 0), 10);
             //砲弾配置(弾幕生成)
             ball.transform.position =
-                this.gameObject.transform.position +
+                set_pos +
                 new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15));
         }
     }

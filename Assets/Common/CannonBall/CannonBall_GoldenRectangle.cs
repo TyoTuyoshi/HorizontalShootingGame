@@ -18,7 +18,7 @@ public class CannonBall_GoldenRectangle : CannonBall
     /// </summary>
     /// <param name="pos">基準座標</param>
     /// <param name="velocity">速度</param>
-    private void Create(Vector2 pos, float velocity)
+    public void Create2(Vector2 pos, float velocity)
     {
         this.pos = pos;
         this.velocity = velocity;
@@ -30,21 +30,53 @@ public class CannonBall_GoldenRectangle : CannonBall
         UpdateGame();
     }
 
-    private float rad = 1.0f;
-    private float time =0.0f;
+    private int rad = 1;
+    private float theta = 0.0f;
+    
+    //フィボナッチ数列用
+    private int f0 = 0, f1 = 1, f2 = 0;
 
+    private int cycle = 0;
     //更新
     private void UpdateGame()
     {
-        time += 0.001f;
-        if ((int)time % 3 == 0)
+        if (rad >= 21.0f)
         {
-            rad *= 1.618f;
-            time++;
+            Destroy(this.gameObject);
+        }
+        theta += 1.0f;
+        if ((int) theta % 180 == 0)
+        {
+            rad = f1 + f0;
+            f0 = f1;
+            f1 = rad;
+            switch (rad)
+            {
+                case 2:
+                    pos.x++;
+                    break;
+                case 3:
+                    pos.y++;
+                    break;
+                case 5:
+                    pos.x -= 2;
+                    break;
+                case 8:
+                    pos.y -= 3;
+                    break;
+                case 13:
+                    pos.x += 5;
+                    break;
+                case 21:
+                    pos.y += 8;
+                    break;
+                case 34:
+                    pos.x -= 13;
+                    break;
+            }
         }
 
-        Debug.Log(time);
-        this.gameObject.transform.position = new Vector3(Mathf.Cos(time / 6 * Mathf.PI),
-            Mathf.Sin(time / 6 * Mathf.PI)) * rad;
+        this.gameObject.transform.position = (Vector3) pos + new Vector3(Mathf.Cos(theta / 360 * Mathf.PI),
+            Mathf.Sin(theta / 360 * Mathf.PI)) * rad;
     }
 }
