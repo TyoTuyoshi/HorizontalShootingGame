@@ -63,23 +63,21 @@ public class Destroyer : Ship
         {
             yield return new WaitForSecondsRealtime(0.05f);
 
-            var ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
-            ball.target = Vector2.right;
+            for (int j = 0; j < 2; j++)
+            {
+                var ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
+                ball.SetPositionLayer(IsEnemy);
+                //Debug.Log("LayerName = " + LayerMask.LayerToName(ball.gameObject.layer));
+               
+                ball.target = Vector2.right;
+                //Y軸上下弾配置のための変数
+                int y_upper = (j == 0) ? 1 : -1; 
 
-            //ball.Create(new Vector2(2, 0), 10);
-            //砲弾配置(弾幕生成)
-            ball.transform.position =
-                set_pos +
-                new Vector3(0, Mathf.Cos(Mathf.PI / 180 * i * 15));
-
-            ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
-            ball.target = Vector2.right;
-
-            //ball.Create(new Vector2(2, 0), 10);
-            //砲弾配置(弾幕生成)
-            ball.transform.position =
-                set_pos +
-                new Vector3(0, -Mathf.Cos(Mathf.PI / 180 * i * 15));
+                //砲弾配置(弾幕生成)
+                ball.transform.position =
+                    set_pos +
+                    new Vector3(0, y_upper * Mathf.Cos(Mathf.PI / 180 * i * 15));
+            }
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEditor;
@@ -9,7 +10,7 @@ public class Ship : MonoBehaviour
 
     //敵扱いフラグ
     //falseなら味方　trueなら敵
-    [SerializeField] private bool is_enemy = false;
+    [Header("敵フラグ"),SerializeField] private bool is_enemy = false;
     public bool IsEnemy //敵扱いフラグプロパティ
     {
         set { is_enemy = value; }
@@ -217,6 +218,8 @@ public class Ship : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
+
+            ball.SetPositionLayer(is_enemy);
             ball.target = target.transform.position - this.gameObject.transform.position;
 
             //ball.Create(new Vector2(0, 0), 10);
@@ -231,25 +234,22 @@ public class Ship : MonoBehaviour
     public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
     public virtual void AirStrike(){ ship_state = State.Move; }//基底　空爆メソッド
 
+    /*
     public void OnTriggerEnter(Collider other)
     {
         //ダメージ判定
-        HitDamage(other);
+    }*/
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        HitDamage(col);
     }
-    
+
     //ダメージ判定
-    private void HitDamage(Collider other)
+    private void HitDamage(Collider2D col)
     {
         //味方目線 ダメージ判定
-        if (other.CompareTag("Enemy") && is_enemy)
-        {
-            //durable -= ;
-        }
-        //敵目線　ダメージ判定
-        else if (other.CompareTag("Player") && !is_enemy)
-        {
-            
-        }
+        Debug.Log($"{KANSEN.name} hit!");
     }
 }
 

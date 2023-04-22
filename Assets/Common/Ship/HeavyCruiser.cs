@@ -39,7 +39,7 @@ public class HeavyCruiser : Ship
         {
             bom_time[0] = 0;
             //通常砲撃(砲弾オブジェクト配置) 6連砲
-            StartCoroutine(Bombardment(cannon_ball[0], 4,0.1f));
+            StartCoroutine(Bombardment(cannon_ball[0], 4,0.05f));
         }
         
         //固有砲撃
@@ -64,7 +64,8 @@ public class HeavyCruiser : Ship
         {
             yield return new WaitForSecondsRealtime(0.05f);
             var ball = Instantiate(cannon_ball[1]) as CannonBall_GoldenRectangle;
-            Debug.Log(this.gameObject.transform.position);
+            ball.SetPositionLayer(IsEnemy);
+
             ball.Create2(this.gameObject.transform.position, 1);
         }
     }

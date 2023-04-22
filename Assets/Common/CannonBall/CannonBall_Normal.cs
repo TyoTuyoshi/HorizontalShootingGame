@@ -14,7 +14,7 @@ public class CannonBall_Normal : CannonBall
     //更新
     private void UpdateGame()
     {
-        FlyBom(target.normalized, 10.0f);
+        FlyBom(target.normalized, 25.0f);
     }
     
     //砲弾の運動(移動)

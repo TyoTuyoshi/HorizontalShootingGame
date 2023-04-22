@@ -21,6 +21,9 @@ public class CannonBall : MonoBehaviour
     //連続砲撃スペック
     public ContinuousAttack ContinuousCanon;
 
+    //味方の弾か敵の弾か?
+    private bool is_enemy = false;
+    
     //砲弾用物理コンポーネント
     protected Rigidbody2D rbody;
 
@@ -68,6 +71,17 @@ public class CannonBall : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    /// <summary>
+    /// 敵か味方かの判別用レイヤー割り当てメソッド
+    /// </summary>
+    /// <param name="is_enemy">falseなら味方,trueなら敵</param>
+    public void SetPositionLayer(bool is_enemy)
+    {
+        string layer_name = (is_enemy) ? "Enemy" : "Player";
+        this.is_enemy = is_enemy;
+        Bom.gameObject.layer = LayerMask.NameToLayer(layer_name);
     }
 
     //砲撃向き設定

@@ -118,7 +118,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0021511316, y: -0.0016134381}
@@ -150,4 +150,4 @@ MonoBehaviour:
   ContinuousCanon:
     contisous: 12
     power: 200
-  target: {fileID: 0}
+  target: {x: 0, y: 0}

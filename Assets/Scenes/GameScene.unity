@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 309582792}
   - component: {fileID: 309582791}
   - component: {fileID: 309582793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship4_BattleShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324499699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08790326, y: 0.62, z: -10}
+  m_LocalPosition: {x: 0.65384626, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 693348063}
   - component: {fileID: 693348062}
   - component: {fileID: 693348064}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship5_AircraftCarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 784238449}
   - component: {fileID: 784238448}
   - component: {fileID: 784238450}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ship6_LightAircraftCarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2001,7 +2001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814683741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08790326, y: 0.62, z: -10}
+  m_LocalPosition: {x: 0.65384626, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2139,7 +2139,8 @@ GameObject:
   - component: {fileID: 2104145121}
   - component: {fileID: 2104145123}
   - component: {fileID: 2104145124}
-  m_Layer: 0
+  - component: {fileID: 2104145125}
+  m_Layer: 6
   m_Name: Ship1_Destroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2258,7 +2259,33 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!61 &2104145125
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104145120}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.09, y: 0.61}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.09, y: 0.61}
+  m_EdgeRadius: 0
 --- !u!1 &2131472421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2298,8 @@ GameObject:
   - component: {fileID: 2131472423}
   - component: {fileID: 2131472425}
   - component: {fileID: 2131472426}
-  m_Layer: 0
+  - component: {fileID: 2131472427}
+  m_Layer: 6
   m_Name: Ship3_HeavyCruiser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2365,7 +2393,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &2131472426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,3 +2420,29 @@ MonoBehaviour:
   cannon_ball:
   - {fileID: -6045565405882723414, guid: fc5264961012bb04db30b2b5ea794b1b, type: 3}
   - {fileID: -3092557561742521323, guid: 703434fe511e80e48ba569e926c4baca, type: 3}
+--- !u!61 &2131472427
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131472421}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.09, y: 0.61}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.09, y: 0.61}
+  m_EdgeRadius: 0
