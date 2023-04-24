@@ -53,9 +53,7 @@ public class Commander : MonoBehaviour
     }
 
     //破棄対象のオブジェクトリスト
-    //private List<GameObject> disposal_list = new List<GameObject>();
     private List<Ship> disposal_list = new List<Ship>();
-
     
     //ゲーム更新
     private void UpdateGame()
@@ -133,12 +131,11 @@ public class Commander : MonoBehaviour
         }
     }
 
-    //オブジェクト破棄
+    //艦船オブジェクト破棄
     private void DestoryObject()
     {
         foreach (var disp_obj in disposal_list)
         {
-            //Destroy(disp_obj);
             disp_obj.Destory();
         }
         disposal_list.Clear();
