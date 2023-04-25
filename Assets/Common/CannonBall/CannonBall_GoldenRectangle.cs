@@ -18,7 +18,7 @@ public class CannonBall_GoldenRectangle : CannonBall
     /// </summary>
     /// <param name="pos">基準座標</param>
     /// <param name="velocity">速度</param>
-    public void Create2(Vector2 pos, float velocity)
+    public override void Create(Vector2 pos, float velocity)
     {
         this.pos = pos;
         this.velocity = velocity;

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-
 using UnityEngine;
 
 //駆逐艦クラス
@@ -9,7 +8,6 @@ public class Destroyer : Ship
     //砲撃する砲弾
     [SerializeField] private CannonBall[] cannon_ball;
 
-    
     //砲撃間隔カウンタ
     //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
     private float[] bom_time = {0, 0, 0};
@@ -55,11 +53,16 @@ public class Destroyer : Ship
     //二連Cos波形連続砲撃(固有弾幕)
     private IEnumerator Bombardment_CrossCos()
     {
-        ShipState = Ship.State.Battle;
+        //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
         //発射時の座標
         Vector3 set_pos = transform.position;
-        for (int i = 0; i < cannon_ball[0].ContinuousCanon.contisous; i++)
+
+        //連射回数
+        int n = cannon_ball[0].ContinuousCanon.contisous;
+
+        //弾幕展開
+        for (int i = 0; i < n; i++)
         {
             yield return new WaitForSecondsRealtime(0.05f);
 

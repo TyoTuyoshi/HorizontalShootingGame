@@ -51,7 +51,7 @@ public class CannonBall : MonoBehaviour
 
     private GameObject Bom;  //自身
     //砲弾の作成
-    public void Create(Vector2 vec,float velocity)
+    public virtual void Create(Vector2 vec,float velocity)
     {
         this.vec = vec;
         this.velocity = velocity;

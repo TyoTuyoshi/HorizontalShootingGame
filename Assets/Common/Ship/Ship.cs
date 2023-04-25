@@ -218,12 +218,8 @@ public class Ship : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
-
             ball.SetPositionLayer(is_enemy);
             ball.target = target.transform.position - this.gameObject.transform.position;
-
-            //ball.Create(new Vector2(0, 0), 10);
-            //ball.transform.LookAt(new Vector3(200, 300),Vector3.right);
             //砲弾配置(弾幕生成)
             ball.transform.position = transform.position;;
         }
