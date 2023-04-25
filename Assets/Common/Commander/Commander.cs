@@ -11,7 +11,7 @@ public class Commander : MonoBehaviour
     [FormerlySerializedAs("KAN_SEN")] [Header("艦隊")] public List<Ship> KANTAI = new List<Ship>();
 
     //ジョイスティック入力
-    private Vector2 joystick_input = new Vector2();
+    private Vector2 move = new Vector2();
 
     //全滅フラグ
     [System.NonSerialized] public bool Annihilation = false;
@@ -23,8 +23,13 @@ public class Commander : MonoBehaviour
     //艦隊の移動可能範囲
     [Header("移動制御範囲"), SerializeField] private Ship.RangePos range;
 
+    private InputAction move_input;
     private void Start()
     {
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        move_input = playerInput.currentActionMap["Move"];
+        Debug.Log(move_input.ReadValue<Vector2>());
+
         //移動制御可能範囲の指定
         foreach (var ship in KANTAI)
         { ship.Range = range; }
@@ -49,7 +54,9 @@ public class Commander : MonoBehaviour
     //操作入力
     private void ProcessInput()
     {
-        joystick_input = Gamepad.current.leftStick.ReadValue();
+        //joystick_input = Gamepad.current.leftStick.ReadValue();
+        move = move_input.ReadValue<Vector2>();
+        //joystick_input = Vector2.one;
     }
 
     //破棄対象のオブジェクトリスト
@@ -84,7 +91,7 @@ public class Commander : MonoBehaviour
         //艦隊の並びに描画順変更
         {
             //上向き移動時最奥順
-            if (joystick_input.y <= 0)
+            if (move.y <= 0)
             {
                 int i = KANTAI.Count - 1;
                 foreach (var ship in KANTAI)
@@ -94,7 +101,7 @@ public class Commander : MonoBehaviour
                 }
             }
             //下向き移動(アイドル含む)時描画順
-            else if (joystick_input.y > 0)
+            else if (move.y > 0)
             {
                 int i = 0;
                 foreach (var ship in KANTAI)
@@ -121,7 +128,7 @@ public class Commander : MonoBehaviour
             //先頭艦のみ操作
             if (i == 0)
             {
-                KANTAI[i].Move(joystick_input, speed);
+                KANTAI[i].Move(move, speed);
             }
             else
             {
