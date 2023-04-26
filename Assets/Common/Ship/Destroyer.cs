@@ -42,7 +42,7 @@ public class Destroyer : Ship
         }
         
         //固有砲撃
-        if (bom_time[1] > UniqueCharge)
+        if (bom_time[1] > UniqueCharge && !IsEnemy)
         {
             bom_time[1] = 0;
             //固有弾幕展開

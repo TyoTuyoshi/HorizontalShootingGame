@@ -29,6 +29,10 @@ public class CannonBall : MonoBehaviour
 
     //外装変更用
     private SpriteRenderer renderer;
+
+    //パーティクル変更用
+    private bool invisible = true;
+    
     public SpriteRenderer Renderer
     {
         set { renderer = value; }
@@ -67,11 +71,11 @@ public class CannonBall : MonoBehaviour
     private void Update()
     {
         //描画されているか否か
-        /*
-        if (!renderer.isVisible)
+        if (!invisible)
         {
-            Destroy(this.gameObject);
-        }*/
+            Destroy(Bom);
+            //Bom.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -89,6 +93,11 @@ public class CannonBall : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         
+    }
+
+    private void OnBecameInvisible()
+    {
+        invisible = false;
     }
 
     //追跡型魚雷
