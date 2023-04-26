@@ -67,10 +67,11 @@ public class CannonBall : MonoBehaviour
     private void Update()
     {
         //描画されているか否か
+        /*
         if (!renderer.isVisible)
         {
             Destroy(this.gameObject);
-        }
+        }*/
     }
 
     /// <summary>
