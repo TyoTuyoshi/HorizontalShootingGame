@@ -4066,7 +4066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a369d49705ce6e43819fe9f793ebaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
+  target: {fileID: 292174733}
   is_enemy: 0
   durable: 800
   charge: 5
@@ -4274,7 +4274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
+  target: {fileID: 292174733}
   is_enemy: 0
   durable: 800
   charge: 4

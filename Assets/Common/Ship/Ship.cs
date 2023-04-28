@@ -154,11 +154,11 @@ public class Ship : MonoBehaviour
     private void UpdateGame()
     {
         //耐久値の監視(撃沈)
-        if (durable <= 0)
+        /*if (durable <= 0)
         {
             durable = 0;
             ship_state = State.Sunk;
-        }
+        }*/
     }
 
     //移動
@@ -245,7 +245,9 @@ public class Ship : MonoBehaviour
     private void HitDamage(Collider2D col)
     {
         //味方目線 ダメージ判定
-        Debug.Log($"{KANSEN.name} hit!");
+        //Debug.Log($"{KANSEN.name} hit!");
+        durable -= 10;
+        Debug.Log($"{KANSEN.name} {durable}");
     }
 }
 

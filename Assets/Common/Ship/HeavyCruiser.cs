@@ -31,6 +31,12 @@ public class HeavyCruiser : Ship
     //ゲーム更新
     private void UpdateGame()
     {
+        if (Durable <= 0)
+        {
+            Durable = 0;
+            ShipState = State.Sunk;
+        }
+
         //砲撃時間の加算
         bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
         
