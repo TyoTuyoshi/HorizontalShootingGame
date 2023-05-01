@@ -2,17 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //Enemyの艦隊チームのクラス
 [System.Serializable]
 public class Phase
 {
-   [SerializeField] public List<Ship> EnemyShip = new List<Ship>();
+   [SerializeField] public List<Ship> EnemyShips = new List<Ship>();
 }
 public class EnemyCommander : MonoBehaviour
 {
+   //プレイヤーの艦隊リスト取得のため
+   [SerializeField] private Commander player_commander;
+   
    //敵艦隊の形態リスト
-   [SerializeField] private List<Phase> phase = new List<Phase>();
+   public List<Phase> EnemyPhases = new List<Phase>();
 
    //敵艦隊の番号(フェーズ)
    private const int current_index = 0;
@@ -37,18 +41,18 @@ public class EnemyCommander : MonoBehaviour
    /// </summary>
    private void UpdateGame()
    {
-      Phase current_phase = phase[current_index];
+      Phase current_phase = EnemyPhases[current_index];
       //フェーズ全滅時の処理
       if (IsAnnihilation(current_phase))
       {
          Debug.Log("敵艦隊全滅...");
-         phase.Remove(phase[current_index]);
+         EnemyPhases.Remove(EnemyPhases[current_index]);
          //艦隊フェーズのシフト
          ShiftCurrentPhase();
       }
 
       //現在のフェーズの艦隊リスト
-      var current_ship = current_phase.EnemyShip;
+      var current_ship = current_phase.EnemyShips;
       //撃沈判定
       for (int i = current_ship.Count - 1; i >= 0; i--)
       {
@@ -77,10 +81,10 @@ public class EnemyCommander : MonoBehaviour
    private void InitPhase()
    {
       //第一フェーズの艦隊は表示するため[0]をスキップ
-      for (int i = 1; i < phase.Count; i++)
+      for (int i = 1; i < EnemyPhases.Count; i++)
       {
          //各フェーズの艦隊
-         var phase_ships = phase[i].EnemyShip; 
+         var phase_ships = EnemyPhases[i].EnemyShips; 
          for (int j = 0; j < phase_ships.Count; j++)
          {
             phase_ships[j].gameObject.SetActive(false);
@@ -94,7 +98,7 @@ public class EnemyCommander : MonoBehaviour
    private void ShiftCurrentPhase()
    {
       //カレントフェーズの艦隊
-      var phase_ships = phase[current_index].EnemyShip;
+      var phase_ships = EnemyPhases[current_index].EnemyShips;
       //次のフェーズの艦隊の"Active"を"true"にする
       for (int i = 0; i < phase_ships.Count; i++)
       {
@@ -109,6 +113,6 @@ public class EnemyCommander : MonoBehaviour
    /// <returns>艦隊が全滅したか?true:false</returns>
    private bool IsAnnihilation(Phase phases)
    {
-      return (phases.EnemyShip.Count == 0);
+      return (phases.EnemyShips.Count == 0);
    }
 }

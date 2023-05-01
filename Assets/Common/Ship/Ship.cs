@@ -6,7 +6,15 @@ using UnityEditor;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
-    [SerializeField] protected GameObject target;
+    //砲撃するターゲット
+    private Ship target;
+    //ターゲットのプロパティ
+    public Ship Target
+    {
+        set { target = value; }
+        get { return target; }
+    }
+
 
     //敵扱いフラグ
     //falseなら味方　trueなら敵
@@ -219,9 +227,9 @@ public class Ship : MonoBehaviour
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
             ball.SetPositionLayer(is_enemy);
-            ball.target = target.transform.position - this.gameObject.transform.position;
+            ball.target = target != null ? target.transform.position - KANSEN.transform.position : Vector2.right;
             //砲弾配置(弾幕生成)
-            ball.transform.position = transform.position;;
+            ball.transform.position = transform.position;
         }
     }
 

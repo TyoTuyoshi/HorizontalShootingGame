@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class Commander : MonoBehaviour
 {
+    //敵の艦隊リスト取得のため
+    [SerializeField] private EnemyCommander enemy_commander;
+
     //艦隊の編隊
     [FormerlySerializedAs("KAN_SEN")] [Header("艦隊")] public List<Ship> KANTAI = new List<Ship>();
 
@@ -61,14 +65,46 @@ public class Commander : MonoBehaviour
 
     //破棄対象のオブジェクトリスト
     private List<Ship> disposal_list = new List<Ship>();
-    
+
+    //ターゲットリストから最近距離にいる敵のインデックスを返す。
+    private int ClosestTargetIndex(Ship ship,List<Ship> targets)
+    {
+        List<float> distances = new List<float>();
+
+        for (int i = 0; i < targets.Count; i++)
+        {
+            float distance =
+                (targets[i].transform.position -
+                 ship.transform.position).magnitude;
+            distances.Add(distance);
+        }
+
+        //最近距離ターゲットのインデックスを返す
+        int target_index = distances.IndexOf(distances.Min());
+
+        return target_index;
+    }
+
     //ゲーム更新
     private void UpdateGame()
     {
         //艦隊が減るほどスピードが早くなる
         speed = ShipSpeed(KANTAI);
         time += Time.deltaTime;
-       
+
+        //砲撃対象の指揮
+        //各艦船からの最近距離の敵をマーク
+        {
+            //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
+            var targets = enemy_commander.EnemyPhases[0].EnemyShips;
+            foreach (var ship in KANTAI)
+            {
+                //最近距離ターゲットのインデックスを取得
+                int index = ClosestTargetIndex(ship, targets);
+                ship.Target = targets[index];
+            }
+        }
+        
         //全滅判定
         if (KANTAI.Count == 0)
         {
@@ -96,7 +132,7 @@ public class Commander : MonoBehaviour
                 int i = KANTAI.Count - 1;
                 foreach (var ship in KANTAI)
                 {
-                    ship.GetComponent<Renderer>().sortingOrder = i;
+                    ship.Renderer.sortingOrder = i;
                     i--;
                 }
             }
@@ -106,7 +142,7 @@ public class Commander : MonoBehaviour
                 int i = 0;
                 foreach (var ship in KANTAI)
                 {
-                    ship.GetComponent<Renderer>().sortingOrder = i;
+                    ship.Renderer.sortingOrder = i;
                     i++;
                 }
             }

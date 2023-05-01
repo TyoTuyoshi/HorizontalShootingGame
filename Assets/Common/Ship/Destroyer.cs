@@ -30,6 +30,7 @@ public class Destroyer : Ship
     //ゲーム更新
     private void UpdateGame()
     {
+        //Target = GameObject.Find("");
         //砲撃時間の加算
         bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
         
@@ -46,12 +47,12 @@ public class Destroyer : Ship
         {
             bom_time[1] = 0;
             //固有弾幕展開
-            StartCoroutine(Bombardment_CrossCos());
+            StartCoroutine(Bombardment_CrossCoswave());
         }
     }
     
     //二連Cos波形連続砲撃(固有弾幕)
-    private IEnumerator Bombardment_CrossCos()
+    private IEnumerator Bombardment_CrossCoswave()
     {
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");

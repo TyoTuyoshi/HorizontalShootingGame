@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -731,7 +730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -1147,7 +1145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -1768,6 +1765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccc09768fbaf3943a4f5b1116d20252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy_commander: {fileID: 1439218469}
   KANTAI:
   - {fileID: 2104145123}
   - {fileID: 2131472426}
@@ -1971,7 +1969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b1062c1cf0f154ca8ab8182c3fb167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   is_enemy: 0
   durable: 0
   charge: 0
@@ -2883,7 +2880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -3014,12 +3010,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59561363159c0e84ca40fb4b3becf8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phase:
-  - EnemyShip:
+  player_commander: {fileID: 992507363}
+  EnemyPhases:
+  - EnemyShips:
     - {fileID: 292174735}
     - {fileID: 312603869}
-    - {fileID: 1580985090}
-  - EnemyShip:
+    - {fileID: 1432925920}
+  - EnemyShips:
     - {fileID: 1432925920}
     - {fileID: 649203878}
     - {fileID: 1808675328}
@@ -3096,7 +3093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -3422,7 +3418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 784238447}
   is_enemy: 1
   durable: 800
   charge: 4
@@ -4066,7 +4061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a369d49705ce6e43819fe9f793ebaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 292174733}
   is_enemy: 0
   durable: 800
   charge: 5
@@ -4274,7 +4268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f9a5f267afef499f97e58781b5814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 292174733}
   is_enemy: 0
   durable: 800
   charge: 4
