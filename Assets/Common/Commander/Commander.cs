@@ -67,7 +67,7 @@ public class Commander : MonoBehaviour
     private List<Ship> disposal_list = new List<Ship>();
 
     //ターゲットリストから最近距離にいる敵のインデックスを返す。
-    private int ClosestTargetIndex(Ship ship,List<Ship> targets)
+    public int ClosestTargetIndex(Ship ship,List<Ship> targets)
     {
         List<float> distances = new List<float>();
 
@@ -97,11 +97,14 @@ public class Commander : MonoBehaviour
         {
             //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
             var targets = enemy_commander.EnemyPhases[0].EnemyShips;
-            foreach (var ship in KANTAI)
+            if (targets.Count != 0)
             {
-                //最近距離ターゲットのインデックスを取得
-                int index = ClosestTargetIndex(ship, targets);
-                ship.Target = targets[index];
+                foreach (var ship in KANTAI)
+                {
+                    //最近距離ターゲットのインデックスを取得
+                    int index = ClosestTargetIndex(ship, targets);
+                    ship.Target = targets[index];
+                }
             }
         }
         

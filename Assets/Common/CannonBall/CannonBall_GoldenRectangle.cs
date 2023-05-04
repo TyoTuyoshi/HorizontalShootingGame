@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class CannonBall_GoldenRectangle : CannonBall
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private Vector2 pos = new Vector2();
     private float velocity = 0.0f;
 
@@ -44,7 +38,8 @@ public class CannonBall_GoldenRectangle : CannonBall
         {
             Destroy(this.gameObject);
         }
-        theta += 1.0f;
+        theta += 3.0f;
+        //いい感じの式が思い浮かばなかった。
         if ((int) theta % 180 == 0)
         {
             rad = f1 + f0;
@@ -75,8 +70,8 @@ public class CannonBall_GoldenRectangle : CannonBall
                     break;
             }
         }
-
-        this.gameObject.transform.position = (Vector3) pos + new Vector3(Mathf.Cos(theta / 360 * Mathf.PI),
-            Mathf.Sin(theta / 360 * Mathf.PI)) * rad;
+        //移動
+        rbody.MovePosition((Vector3) pos + new Vector3(Mathf.Cos(theta / 360 * Mathf.PI),
+            Mathf.Sin(theta / 360 * Mathf.PI)) * rad);
     }
 }

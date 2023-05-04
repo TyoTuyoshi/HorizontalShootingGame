@@ -6,6 +6,11 @@ using UnityEditor;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
+    [Header("撃てる弾")] public CannonBall[] CannonBalls;
+    //砲撃間隔カウンタ
+    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
+    protected float[] bom_time = {0, 0, 0};
+    
     //砲撃するターゲット
     private Ship target;
     //ターゲットのプロパティ
@@ -14,7 +19,6 @@ public class Ship : MonoBehaviour
         set { target = value; }
         get { return target; }
     }
-
 
     //敵扱いフラグ
     //falseなら味方　trueなら敵
@@ -151,7 +155,6 @@ public class Ship : MonoBehaviour
     
     //砲撃間隔カウンタ
     //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
-    private float[] bom_time = {0, 0, 0};
 
     private void Update()
     {
@@ -227,7 +230,7 @@ public class Ship : MonoBehaviour
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
             ball.SetPositionLayer(is_enemy);
-            ball.target = target != null ? target.transform.position - KANSEN.transform.position : Vector2.right;
+            ball.target = target != null ? target.transform.position - KANSEN.transform.position : Vector2.left;
             //砲弾配置(弾幕生成)
             ball.transform.position = transform.position;
         }

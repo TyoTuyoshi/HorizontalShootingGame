@@ -42,6 +42,21 @@ public class EnemyCommander : MonoBehaviour
    private void UpdateGame()
    {
       Phase current_phase = EnemyPhases[current_index];
+      var current_ship = current_phase.EnemyShips;
+
+      //砲撃対象の指揮
+      //各艦船からの最近距離の敵をマーク
+      /*{
+         //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
+         var targets = player_commander.KANTAI;
+         foreach (var ship in current_ship)
+         {
+            //最近距離ターゲットのインデックスを取得
+            int index = player_commander.ClosestTargetIndex(ship, targets);
+            ship.Target = targets[index];
+         }
+      }*/
+      
       //フェーズ全滅時の処理
       if (IsAnnihilation(current_phase))
       {
@@ -52,7 +67,6 @@ public class EnemyCommander : MonoBehaviour
       }
 
       //現在のフェーズの艦隊リスト
-      var current_ship = current_phase.EnemyShips;
       //撃沈判定
       for (int i = current_ship.Count - 1; i >= 0; i--)
       {
@@ -61,6 +75,19 @@ public class EnemyCommander : MonoBehaviour
             //破棄リスト送り
             disposal_list.Add(current_ship[i]);
             current_ship.Remove(current_ship[i]);
+         }
+      }
+      
+      //砲撃対象の指揮
+      //各艦船からの最近距離の敵をマーク
+      {
+         //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
+         var targets = player_commander.KANTAI;
+         foreach (var ship in current_ship)
+         {
+            //最近距離ターゲットのインデックスを取得
+            int index = player_commander.ClosestTargetIndex(ship, targets);
+            ship.Target = targets[index];
          }
       }
    }

@@ -5,12 +5,6 @@ using UnityEngine;
 //駆逐艦クラス
 public class Destroyer : Ship
 {
-    //砲撃する砲弾
-    [SerializeField] private CannonBall[] cannon_ball;
-
-    //砲撃間隔カウンタ
-    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
-    private float[] bom_time = {0, 0, 0};
     private void Start()
     {
         InitStatus();
@@ -30,7 +24,6 @@ public class Destroyer : Ship
     //ゲーム更新
     private void UpdateGame()
     {
-        //Target = GameObject.Find("");
         //砲撃時間の加算
         bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
         
@@ -39,7 +32,7 @@ public class Destroyer : Ship
         {
             bom_time[0] = 0;
             //通常砲撃(砲弾オブジェクト配置) 6連砲
-            StartCoroutine(Bombardment(cannon_ball[0], 6, 0.05f));
+            StartCoroutine(Bombardment(CannonBalls[0], 6, 0.05f));
         }
         
         //固有砲撃
@@ -57,10 +50,13 @@ public class Destroyer : Ship
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
         //発射時の座標
-        Vector3 set_pos = transform.position;
+        //Vector3 set_pos = transform.position;
 
         //連射回数
-        int n = cannon_ball[0].ContinuousCanon.contisous;
+        int n = CannonBalls[0].ContinuousCanon.contisous;
+
+        //演算用円周率
+        float pi = Mathf.PI;
 
         //弾幕展開
         for (int i = 0; i < n; i++)
@@ -69,18 +65,26 @@ public class Destroyer : Ship
 
             for (int j = 0; j < 2; j++)
             {
-                var ball = Instantiate(cannon_ball[0]) as CannonBall_Normal;
+                //現在位置
+                Vector3 pos = this.gameObject.transform.position;
+
+                //発射する弾
+                var ball = Instantiate(CannonBalls[0]) as CannonBall_Normal;
                 ball.SetPositionLayer(IsEnemy);
                 //Debug.Log("LayerName = " + LayerMask.LayerToName(ball.gameObject.layer));
                
                 ball.target = Vector2.right;
                 //Y軸上下弾配置のための変数
-                int y_upper = (j == 0) ? 1 : -1; 
+                //int y_upper = (j == 0) ? 1 : -1;
+                int y_upper = (int)Mathf.Pow(-1, j);
 
                 //砲弾配置(弾幕生成)
-                ball.transform.position =
-                    set_pos +
-                    new Vector3(0, y_upper * Mathf.Cos(Mathf.PI / 180 * i * 15));
+                ball.transform.position = pos +
+                                          new Vector3(
+                                              0,
+                                              y_upper * Mathf.Cos(pi / 180 * i * 15));
+                //追従のための親子関係
+                ball.transform.parent = this.gameObject.transform;
             }
         }
     }

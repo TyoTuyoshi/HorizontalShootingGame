@@ -13,7 +13,7 @@ public class CannonBall : MonoBehaviour
         public int contisous;   //連続回数
         public int power;       //火力
     }
-    
+
     //距離減衰
     private int power_attenuation = 0;
     //連続砲撃可能スペック判断

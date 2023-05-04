@@ -6,12 +6,6 @@ using System.Linq;
 //重巡洋艦クラス
 public class HeavyCruiser : Ship
 {
-    //砲撃する砲弾
-    [SerializeField] private CannonBall[] cannon_ball;
-    
-    //砲撃間隔カウンタ
-    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
-    private float[] bom_time = {0, 0, 0};
     private void Start()
     {
         InitStatus();
@@ -45,7 +39,7 @@ public class HeavyCruiser : Ship
         {
             bom_time[0] = 0;
             //通常砲撃(砲弾オブジェクト配置) 6連砲
-            StartCoroutine(Bombardment(cannon_ball[0], 4,0.05f));
+            StartCoroutine(Bombardment(CannonBalls[0], 4,0.05f));
         }
         
         //固有砲撃(敵は発射させない)
@@ -65,13 +59,13 @@ public class HeavyCruiser : Ship
         Debug.Log(Name + ":固有弾幕展開!");
 
         //連射回数
-        int n = cannon_ball[1].ContinuousCanon.contisous;
+        int n = CannonBalls[1].ContinuousCanon.contisous;
 
         //弾幕展開
         for (int i = 0; i < n; i++)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            var ball = Instantiate(cannon_ball[1]) as CannonBall_GoldenRectangle;
+            var ball = Instantiate(CannonBalls[1]) as CannonBall_GoldenRectangle;
             ball.SetPositionLayer(IsEnemy);
             ball.Create(this.gameObject.transform.position, 1);
         }
