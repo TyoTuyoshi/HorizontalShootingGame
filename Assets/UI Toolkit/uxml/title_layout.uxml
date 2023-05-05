@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement>
+        <ui:Label text="Horizontal2D Shooting Game&#10;" display-tooltip-when-elided="true" name="title" style="position: absolute; top: 298px; left: 267px; justify-content: flex-start; font-size: 60px; -unity-text-align: middle-center; height: 138px; width: 863px; white-space: nowrap; color: rgb(255, 255, 255);" />
+        <ui:Button text="Start" display-tooltip-when-elided="true" name="Start" style="position: absolute; top: 495px; left: 567px; font-size: 30px; width: 196px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -42,11 +42,17 @@ public class LightCruiser :Ship
             //通常砲撃(砲弾オブジェクト配置) 6連砲
             StartCoroutine(Bombardment(CannonBalls[0], 4,0.05f));
         }
-        
-        //固有砲撃(敵は発射させない)
-        if (bom_time[1] > UniqueCharge && !IsEnemy)
+        //拡散弾発射 +3秒
+        if (bom_time[1] > (Charge + 3))
         {
             bom_time[1] = 0;
+            StartCoroutine(BombardmentDiffusion(CannonBalls[1], 4, 1.5f, 5, -10, 0.0f));
+        }
+        
+        //固有砲撃(敵は発射させない)
+        if (bom_time[2] > UniqueCharge && !IsEnemy)
+        {
+            bom_time[2] = 0;
             //固有弾幕展開
             StartCoroutine(BombardmentLateBall());
         }
@@ -59,7 +65,7 @@ public class LightCruiser :Ship
         Debug.Log(Name + ":固有弾幕展開!");
 
         //連射回数
-        int n = CannonBalls[1].ContinuousCanon.contisous;
+        int n = CannonBalls[2].ContinuousCanon.contisous;
 
         int offset = -90;
 
@@ -71,7 +77,7 @@ public class LightCruiser :Ship
             Vector3 pos = this.gameObject.transform.position;
 
             //発射する弾
-            var ball = Instantiate(CannonBalls[1]) as CannonBall_Late;
+            var ball = Instantiate(CannonBalls[2]) as CannonBall_Late;
             ball.SetPositionLayer(IsEnemy);
             ball.SetTarget(Target.gameObject, this.gameObject);
             //円形状に弾を配置

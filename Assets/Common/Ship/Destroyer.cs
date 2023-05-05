@@ -34,7 +34,7 @@ public class Destroyer : Ship
             //通常砲撃(砲弾オブジェクト配置) 6連砲
             StartCoroutine(Bombardment(CannonBalls[0], 6, 0.05f));
         }
-        //拡散弾発射
+        //拡散弾発射　+3秒
         if (bom_time[1] > (Charge+3))
         {
             bom_time[1] = 0;
