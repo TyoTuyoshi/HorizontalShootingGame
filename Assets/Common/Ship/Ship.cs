@@ -201,6 +201,8 @@ public class Ship : MonoBehaviour
     //破棄
     public void Destory()
     {
+        //味方が敵を倒したとき
+        //if (is_enemy) GameManager.Instance.Result = GameManager.BattleScore.S;
         UnityEngine.Object.Destroy(this.gameObject);
     }
 
@@ -255,7 +257,6 @@ public class Ship : MonoBehaviour
     public IEnumerator BombardmentDiffusion(CannonBall cannon_ball, int n, float radius = 1.0f,
         int phase = 10, int offset = 0, float interval = 0)
     {
-        Debug.Log(Name + ":発射!");
         for (int i = 0; i < n; i++)
         {
             yield return new WaitForSecondsRealtime(interval);
@@ -297,9 +298,12 @@ public class Ship : MonoBehaviour
     private void HitDamage(Collider2D col)
     {
         //味方目線 ダメージ判定
-        //Debug.Log($"{KANSEN.name} hit!");
         durable -= 10;
-        Debug.Log($"{MyShip.name} {durable}");
+        /*
+        if (!is_enemy)
+        {
+            GameManager.instance.score += 10;
+        }*/
     }
 }
 

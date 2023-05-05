@@ -103,6 +103,8 @@ public class CannonBall : MonoBehaviour
     /// <param name="attacker">攻撃する側</param>
     public void SetTarget(GameObject target,GameObject attacker)
     {
+        //途中でどちらかが消えてしまった中断
+        if (target == null || attacker == null) return;
         target_vec = (target.transform.position - attacker.transform.position).normalized;
     }
     

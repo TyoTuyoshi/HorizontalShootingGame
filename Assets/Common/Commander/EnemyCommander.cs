@@ -24,6 +24,9 @@ public class EnemyCommander : MonoBehaviour
    //破棄対象のオブジェクトリスト
    private List<Ship> disposal_list = new List<Ship>();
 
+   //全滅フラグ
+   [System.NonSerialized] public bool Annihilation = false;
+
    void Start()
    {
       //フェーズの初期化
@@ -43,6 +46,13 @@ public class EnemyCommander : MonoBehaviour
    {
       Phase current_phase = EnemyPhases[current_index];
       var current_ship = current_phase.EnemyShips;
+
+      //全滅フラグオン
+      if (current_phase.EnemyShips.Count == 0 && EnemyPhases.Count == 0)
+      {
+         Annihilation = true;
+         return;
+      }
 
       //フェーズ全滅時の処理
       if (IsAnnihilation(current_phase))
@@ -77,10 +87,6 @@ public class EnemyCommander : MonoBehaviour
                int index = player_commander.ClosestTargetIndex(ship, targets);
                ship.Target = targets[index];
             }
-         }
-         else
-         {
-            
          }
       }
    }
