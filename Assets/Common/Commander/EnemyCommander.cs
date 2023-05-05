@@ -68,13 +68,19 @@ public class EnemyCommander : MonoBehaviour
       //砲撃対象の指揮
       //各艦船からの最近距離の敵をマーク
       {
-         //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
          var targets = player_commander.KANTAI;
-         foreach (var ship in current_ship)
+         if (targets.Count != 0)
          {
-            //最近距離ターゲットのインデックスを取得
-            int index = player_commander.ClosestTargetIndex(ship, targets);
-            ship.Target = targets[index];
+            foreach (var ship in current_ship)
+            {
+               //最近距離ターゲットのインデックスを取得
+               int index = player_commander.ClosestTargetIndex(ship, targets);
+               ship.Target = targets[index];
+            }
+         }
+         else
+         {
+            
          }
       }
    }

@@ -14,13 +14,13 @@ public class CannonBall : MonoBehaviour
         public int power;       //火力
     }
 
+    public static int EXP;
     //攻撃対象のベクトル
     protected Vector2 target_vec;
 
     //距離減衰
     private int power_attenuation = 0;
-    //連続砲撃可能スペック判断
-    public bool CanContinous = false;
+    
     //連続砲撃スペック
     public ContinuousAttack ContinuousCanon;
 
@@ -42,22 +42,23 @@ public class CannonBall : MonoBehaviour
         set { renderer = value; }
         get { return renderer; }
     }
-
-    private Vector2 vec = Vector2.right; //進行方向
+    //進行方向
+    private Vector2 vec = Vector2.right; 
     public Vector2 Vec
     {
         set { vec = value; }
         get { return vec; }
     }
-    private float velocity = 1.0f;      //進行速度
-
+    //進行速度(プレハブごとに指定する用)
+    [SerializeField] protected float velocity = 1.0f;
+    /*
     public float Velocity
     {
         set { velocity = value; }
         get { return velocity; }
-    }
+    }*/
 
-    //砲弾の作成
+    //砲弾の作成(艦船から変更する用)
     public virtual void Create(Vector2 vec,float velocity)
     {
         this.vec = vec;
@@ -90,9 +91,9 @@ public class CannonBall : MonoBehaviour
     /// 攻撃対象のベクトルを設定
     /// </summary>
     /// <param name="target_pos"></param>
-    public void SetTarget(Vector3 target_vec)
+    public void SetTarget(Vector3 vec)
     {
-        this.target_vec = target_vec;
+        target_vec = vec.normalized;
     }
 
     /// <summary>
@@ -100,9 +101,9 @@ public class CannonBall : MonoBehaviour
     /// </summary>
     /// <param name="target_obj">攻撃対象</param>
     /// <param name="attacker">攻撃する側</param>
-    public void SetTarget(GameObject target_obj,GameObject attacker)
+    public void SetTarget(GameObject target,GameObject attacker)
     {
-        target_vec = target_obj.transform.position - attacker.transform.position;
+        target_vec = (target.transform.position - attacker.transform.position).normalized;
     }
     
     /// <summary>

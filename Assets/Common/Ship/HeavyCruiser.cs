@@ -47,13 +47,13 @@ public class HeavyCruiser : Ship
         {
             bom_time[1] = 0;
             //固有弾幕展開
-            StartCoroutine(Bombardment_GoldenRectangle());
+            StartCoroutine(BombardmentGoldenRectangle());
         }
     }
 
 
     //黄金長方形弾幕展開(固有弾幕)
-    private IEnumerator Bombardment_GoldenRectangle()
+    private IEnumerator BombardmentGoldenRectangle()
     {
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");

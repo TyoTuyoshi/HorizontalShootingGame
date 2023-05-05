@@ -144,7 +144,7 @@ MonoBehaviour:
   ContinuousCanon:
     contisous: 36
     power: 20
-  target: {x: 0, y: 0}
+  velocity: 25
 --- !u!1 &8142927748567249800
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,7 +92,7 @@ MonoBehaviour:
   ContinuousCanon:
     contisous: 36
     power: 20
-  target: {x: 0, y: 0}
+  velocity: 25
   wait_time: 1.5
 --- !u!212 &7632342486427368946
 SpriteRenderer:

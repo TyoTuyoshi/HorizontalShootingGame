@@ -141,6 +141,8 @@ public class Ship : MonoBehaviour
 
     protected GameObject MyShip; //継承先からのthis.gameObject省略用
 
+    //演算用円周率
+    protected float pi = Mathf.PI;
     private void Awake()
     {
         //オブジェクト、コンポーネント等の初期化取得
@@ -217,26 +219,61 @@ public class Ship : MonoBehaviour
         return pos;
     }
 
-    //基底　砲撃メソッド
-    //public virtual IEnumerator Bombardment() { yield return null;}
-    
-    //通常砲撃メソッド(連続砲撃)
-    public IEnumerator Bombardment(CannonBall cannon_ball, int contisous, float interval)
+    /// <summary>
+    ///通常砲撃メソッド(連続砲撃)
+    /// </summary>
+    /// <param name="cannon_ball">発射する弾</param>
+    /// <param name="n">連続発射回数</param>
+    /// <param name="interval">発射周期(待ち時間)</param>
+    public IEnumerator Bombardment(CannonBall cannon_ball, int n, float interval)
     {
-        ShipState = Ship.State.Battle;
         Debug.Log(Name + ":発射!");
 
-        for (int i = 0; i < contisous; i++)
+        for (int i = 0; i < n; i++)
+        {
+            yield return new WaitForSecondsRealtime(interval);
+            //敵か味方かのレイヤー指定
+            var ball = Instantiate(cannon_ball) as CannonBall_Normal;
+            ball.SetPositionLayer(is_enemy);
+            //発射先ターゲットのベクトルを指定
+            var vec = (target != null) ? target.transform.position - MyShip.transform.position : Vector3.left;
+            ball.SetTarget(vec);
+            //配置
+            ball.SetPosition(MyShip.transform.position);
+        }
+    }
+
+    /// <summary>
+    /// 拡散型通常弾幕(カスタム)
+    /// </summary>
+    /// <param name="cannon_ball">発射する弾</param>
+    /// <param name="n">連続発射回数</param>
+    /// <param name="radius">半径</param>
+    /// <param name="phase">砲弾間の位相</param>
+    /// <param name="offset">配置開始位置のオフセット</param>
+    /// <param name="interval">発射周期(待ち時間)</param>
+    public IEnumerator BombardmentDiffusion(CannonBall cannon_ball, int n, float radius = 1.0f,
+        int phase = 10, int offset = 0, float interval = 0)
+    {
+        Debug.Log(Name + ":発射!");
+        for (int i = 0; i < n; i++)
         {
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
             ball.SetPositionLayer(is_enemy);
+            //ラジアン計算
+            float theta = (pi * (phase * i + offset)) / 180;
+
+            var vec = radius * new Vector3(
+                Mathf.Cos(theta),
+                Mathf.Sin(theta));
             
-            var vec = (target != null) ? target.transform.position - MyShip.transform.position : Vector3.left;
+            ball.transform.LookAt(vec);
+            
+            //発射先ターゲットの指定
             ball.SetTarget(vec);
             //砲弾配置(弾幕生成)
-            ball.SetPosition(MyShip.transform.position);
-            //ball.transform.position = transform.position;
+            ball.SetPosition(MyShip.transform.position + vec);
         }
     }
 

@@ -48,12 +48,12 @@ public class LightCruiser :Ship
         {
             bom_time[1] = 0;
             //固有弾幕展開
-            StartCoroutine(Bombardment_LateBall());
+            StartCoroutine(BombardmentLateBall());
         }
     }
 
     //黄金長方形弾幕展開(固有弾幕)
-    private IEnumerator Bombardment_LateBall()
+    private IEnumerator BombardmentLateBall()
     {
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
@@ -62,8 +62,7 @@ public class LightCruiser :Ship
         int n = CannonBalls[1].ContinuousCanon.contisous;
 
         int offset = -90;
-        //演算用円周率
-        float pi = Mathf.PI;
+
         //弾幕展開
         for (int i = 0; i < n; i++)
         {

@@ -34,18 +34,23 @@ public class Destroyer : Ship
             //通常砲撃(砲弾オブジェクト配置) 6連砲
             StartCoroutine(Bombardment(CannonBalls[0], 6, 0.05f));
         }
-        
-        //固有砲撃
-        if (bom_time[1] > UniqueCharge && !IsEnemy)
+        //拡散弾発射
+        if (bom_time[1] > (Charge+3))
         {
             bom_time[1] = 0;
+            StartCoroutine(BombardmentDiffusion(CannonBalls[1], 6, 1.5f, 5, -15, 0.0f));
+        }
+        //固有砲撃
+        if (bom_time[2] > UniqueCharge && !IsEnemy)
+        {
+            bom_time[2] = 0;
             //固有弾幕展開
-            StartCoroutine(Bombardment_CrossCoswave());
+            StartCoroutine(BombardmentCrossCoswave());
         }
     }
     
     //二連Cos波形連続砲撃(固有弾幕)
-    private IEnumerator Bombardment_CrossCoswave()
+    private IEnumerator BombardmentCrossCoswave()
     {
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");

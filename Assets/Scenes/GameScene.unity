@@ -981,10 +981,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb270319d3bfee46b4e3f837dc7c519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanContinous: 0
   ContinuousCanon:
     contisous: 0
     power: 0
+  velocity: 1
 --- !u!50 &407570764
 Rigidbody2D:
   serializedVersion: 4
@@ -3581,6 +3581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CannonBalls:
   - {fileID: 8142927748421946914, guid: 9bcd3e032afcf6a4aae4acb185a07c6d, type: 3}
+  - {fileID: 931903406613341720, guid: d12b64d93d96e334694a39ff720c112b, type: 3}
   is_enemy: 0
   durable: 800
   charge: 2
