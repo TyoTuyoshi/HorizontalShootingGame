@@ -121,7 +121,6 @@ public class Ship : MonoBehaviour
         get { return unique_charge; }
     }
 
-    private GameObject KANSEN; //艦船
     [System.NonSerialized] public SpriteRenderer Renderer;
 
     //範囲制御
@@ -139,11 +138,13 @@ public class Ship : MonoBehaviour
     }
 
     private Rigidbody2D rbody;//艦用物理コンポーネント
-    
+
+    protected GameObject MyShip; //継承先からのthis.gameObject省略用
+
     private void Awake()
     {
         //オブジェクト、コンポーネント等の初期化取得
-        KANSEN = this.gameObject;
+        MyShip = this.gameObject;
         rbody = this.gameObject.GetComponent<Rigidbody2D>();
         Renderer = this.gameObject.GetComponent<SpriteRenderer>();
 
@@ -177,9 +178,9 @@ public class Ship : MonoBehaviour
     {
         //ship_state = State.Move;
         const float coefficient = 1.5f; //速力係数
-        rbody.MovePosition(KANSEN.transform.position + (Vector3)pos * coefficient * speed * Time.fixedDeltaTime);
+        rbody.MovePosition(MyShip.transform.position + (Vector3)pos * coefficient * speed * Time.fixedDeltaTime);
         //rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
-        KANSEN.transform.position = PositionRange(KANSEN.transform.position, move_range.MinPos, move_range.MaxPos);
+        MyShip.transform.position = PositionRange(MyShip.transform.position, move_range.MinPos, move_range.MaxPos);
     }
 
     //追従移動
@@ -188,10 +189,10 @@ public class Ship : MonoBehaviour
         //ship_state = State.Move;
         const float speed = 1.5f;
         //一定距離外であるときに追従
-        if (Vector2.Distance(pos, KANSEN.transform.position) > distance)
+        if (Vector2.Distance(pos, MyShip.transform.position) > distance)
         {
             float present_pos = (Time.deltaTime * speed) / distance;
-            KANSEN.transform.position = Vector2.Lerp(KANSEN.transform.position, pos, present_pos);
+            MyShip.transform.position = Vector2.Lerp(MyShip.transform.position, pos, present_pos);
         }
     }
 
@@ -230,9 +231,12 @@ public class Ship : MonoBehaviour
             yield return new WaitForSecondsRealtime(interval);
             var ball = Instantiate(cannon_ball) as CannonBall_Normal;
             ball.SetPositionLayer(is_enemy);
-            ball.target = target != null ? target.transform.position - KANSEN.transform.position : Vector2.left;
+            
+            var vec = (target != null) ? target.transform.position - MyShip.transform.position : Vector3.left;
+            ball.SetTarget(vec);
             //砲弾配置(弾幕生成)
-            ball.transform.position = transform.position;
+            ball.SetPosition(MyShip.transform.position);
+            //ball.transform.position = transform.position;
         }
     }
 
@@ -258,7 +262,7 @@ public class Ship : MonoBehaviour
         //味方目線 ダメージ判定
         //Debug.Log($"{KANSEN.name} hit!");
         durable -= 10;
-        Debug.Log($"{KANSEN.name} {durable}");
+        Debug.Log($"{MyShip.name} {durable}");
     }
 }
 

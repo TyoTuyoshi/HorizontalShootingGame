@@ -67,7 +67,7 @@ public class HeavyCruiser : Ship
             yield return new WaitForSecondsRealtime(0.05f);
             var ball = Instantiate(CannonBalls[1]) as CannonBall_GoldenRectangle;
             ball.SetPositionLayer(IsEnemy);
-            ball.Create(this.gameObject.transform.position, 1);
+            ball.Create(MyShip.transform.position, 1);
         }
     }
 

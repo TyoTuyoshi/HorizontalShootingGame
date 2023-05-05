@@ -14,6 +14,9 @@ public class CannonBall : MonoBehaviour
         public int power;       //火力
     }
 
+    //攻撃対象のベクトル
+    protected Vector2 target_vec;
+
     //距離減衰
     private int power_attenuation = 0;
     //連続砲撃可能スペック判断
@@ -22,6 +25,7 @@ public class CannonBall : MonoBehaviour
     public ContinuousAttack ContinuousCanon;
 
     //味方の弾か敵の弾か?
+    //trueなら敵,falseなら味方
     private bool is_enemy = false;
     
     //砲弾用物理コンポーネント
@@ -53,19 +57,20 @@ public class CannonBall : MonoBehaviour
         get { return velocity; }
     }
 
-    private GameObject Bom;  //自身
     //砲弾の作成
     public virtual void Create(Vector2 vec,float velocity)
     {
         this.vec = vec;
         this.velocity = velocity;
     }
+    
+    protected GameObject MyBom;//継承先からのthis.gameObject省略用
 
     private void Awake()
     {
-        Bom = this.gameObject;
-        renderer = Bom.GetComponent<SpriteRenderer>();
-        rbody = Bom.GetComponent<Rigidbody2D>();
+        MyBom = this.gameObject;
+        renderer = MyBom.GetComponent<SpriteRenderer>();
+        rbody = MyBom.GetComponent<Rigidbody2D>();
     }
     
     private void Update()
@@ -73,9 +78,43 @@ public class CannonBall : MonoBehaviour
         //描画されているか否か
         if (!invisible)
         {
-            Destroy(Bom);
+            Destroy(MyBom);
             //Bom.SetActive(false);
         }
+    }
+
+    //public virtual void SetTarget(Vector3 target_pos) { }
+    //public virtual void SetTarget(GameObject target_obj,GameObject attacker) { }
+
+    /// <summary>
+    /// 攻撃対象のベクトルを設定
+    /// </summary>
+    /// <param name="target_pos"></param>
+    public void SetTarget(Vector3 target_vec)
+    {
+        this.target_vec = target_vec;
+    }
+
+    /// <summary>
+    /// 引数をゲームオブジェクトにしたオバロ
+    /// </summary>
+    /// <param name="target_obj">攻撃対象</param>
+    /// <param name="attacker">攻撃する側</param>
+    public void SetTarget(GameObject target_obj,GameObject attacker)
+    {
+        target_vec = target_obj.transform.position - attacker.transform.position;
+    }
+    
+    /// <summary>
+    /// 発射する座標の設定
+    /// </summary>
+    /// <param name="pos">配置する座標</param>
+    /// <param name="parent">親オブジェクト</param>
+    public void SetPosition(Vector3 pos,GameObject parent = null)
+    {
+        MyBom.transform.position = pos;
+        //親子関係を持たせたい時だけ
+        if (parent != null) MyBom.transform.parent = parent.transform;
     }
 
     /// <summary>
@@ -86,7 +125,7 @@ public class CannonBall : MonoBehaviour
     {
         string layer_name = (is_enemy) ? "Enemy" : "Player";
         this.is_enemy = is_enemy;
-        Bom.gameObject.layer = LayerMask.NameToLayer(layer_name);
+        MyBom.gameObject.layer = LayerMask.NameToLayer(layer_name);
     }
 
     //砲撃向き設定

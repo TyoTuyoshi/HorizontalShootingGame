@@ -74,11 +74,12 @@ public class LightCruiser :Ship
             //発射する弾
             var ball = Instantiate(CannonBalls[1]) as CannonBall_Late;
             ball.SetPositionLayer(IsEnemy);
-            ball.target = Target.transform.position - pos;
-            ball.transform.position = pos +
-                                      new Vector3(
-                                          2 * Mathf.Cos((i * 10 + offset) * pi / 180),
-                                          2 * Mathf.Sin((i * 10 + offset) * pi / 180));
+            ball.SetTarget(Target.gameObject, this.gameObject);
+            //円形状に弾を配置
+            ball.SetPosition(pos +
+                             new Vector3(
+                                 2 * Mathf.Cos((i * 10 + offset) * pi / 180),
+                                 2 * Mathf.Sin((i * 10 + offset) * pi / 180)));
             //発射するまで親子関係で追従
             ball.transform.parent = this.gameObject.transform;
         }

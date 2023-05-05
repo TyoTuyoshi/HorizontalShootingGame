@@ -4,13 +4,17 @@ using UnityEngine;
 
 namespace CanonBallSet
 {
-    public sealed class Field
+    public sealed class Shape
     {
+        private float pi = Mathf.PI;
         //円
-        public void Round(Vector2 center, int cnt = 1)
+        public void Round(ref Vector2 center, int wait_time, int n, int size, int radius, int offset = 0)
         {
-            
+            for (int i = 0; i < n; i++)
+            {
+            }
         }
+
         //四角
         public void Square(Vector2 center, int cnt = 1)
         {

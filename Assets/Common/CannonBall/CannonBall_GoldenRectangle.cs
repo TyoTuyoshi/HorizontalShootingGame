@@ -8,7 +8,7 @@ public class CannonBall_GoldenRectangle : CannonBall
     private float velocity = 0.0f;
 
     /// <summary>
-    /// 砲弾作成セットアップ
+    /// 黄金回転用の砲弾作成セットアップ
     /// </summary>
     /// <param name="pos">基準座標</param>
     /// <param name="velocity">速度</param>
@@ -28,7 +28,7 @@ public class CannonBall_GoldenRectangle : CannonBall
     private float theta = 0.0f;
     
     //フィボナッチ数列用
-    private int f0 = 0, f1 = 1, f2 = 0;
+    private int f0 = 0, f1 = 1;
 
     private int cycle = 0;
     //更新
@@ -36,7 +36,7 @@ public class CannonBall_GoldenRectangle : CannonBall
     {
         if (rad >= 21.0f)
         {
-            Destroy(this.gameObject);
+            Destroy(MyBom);
         }
         theta += 3.0f;
         //いい感じの式が思い浮かばなかった。

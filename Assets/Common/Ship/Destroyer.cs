@@ -50,7 +50,6 @@ public class Destroyer : Ship
         //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
         //発射時の座標
-        //Vector3 set_pos = transform.position;
 
         //連射回数
         int n = CannonBalls[0].ContinuousCanon.contisous;
@@ -66,25 +65,23 @@ public class Destroyer : Ship
             for (int j = 0; j < 2; j++)
             {
                 //現在位置
-                Vector3 pos = this.gameObject.transform.position;
+                Vector3 pos = MyShip.transform.position;
 
                 //発射する弾
                 var ball = Instantiate(CannonBalls[0]) as CannonBall_Normal;
                 ball.SetPositionLayer(IsEnemy);
-                //Debug.Log("LayerName = " + LayerMask.LayerToName(ball.gameObject.layer));
-               
-                ball.target = Vector2.right;
+                ball.SetTarget(Vector2.right);
+                
                 //Y軸上下弾配置のための変数
                 //int y_upper = (j == 0) ? 1 : -1;
                 int y_upper = (int)Mathf.Pow(-1, j);
 
                 //砲弾配置(弾幕生成)
-                ball.transform.position = pos +
-                                          new Vector3(
-                                              0,
-                                              y_upper * Mathf.Cos(pi / 180 * i * 15));
+                ball.SetPosition(pos +
+                                 new Vector3(
+                                     0, y_upper * Mathf.Cos(pi / 180 * i * 15)), MyShip);
                 //追従のための親子関係
-                ball.transform.parent = this.gameObject.transform;
+                ball.transform.parent = MyShip.transform;
             }
         }
     }
