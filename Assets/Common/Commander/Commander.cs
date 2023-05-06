@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Manager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -88,6 +89,8 @@ public class Commander : MonoBehaviour
     //ゲーム更新
     private void UpdateGame()
     {
+        //バトルが終了ならリターン
+        if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
         //艦隊が減るほどスピードが早くなる
         speed = ShipSpeed(KANTAI);
         time += Time.deltaTime;
@@ -96,7 +99,16 @@ public class Commander : MonoBehaviour
         //各艦船からの最近距離の敵をマーク
         {
             //敵艦隊のフェーズは全滅する度に、先頭のフェーズにシフトするため参照可能
+            try
+            {
+                var try_targets = enemy_commander.EnemyPhases[0].EnemyShips;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
             var targets = enemy_commander.EnemyPhases[0].EnemyShips;
+
             if (targets.Count != 0)
             {
                 foreach (var ship in KANTAI)
@@ -161,6 +173,9 @@ public class Commander : MonoBehaviour
     //物理系コンポーネント更新
     private void FixedGameUpdate()
     {
+        //バトルが終了ならリターン
+        if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
+        
         //各艦船の移動指揮
         for (int i = 0; i < KANTAI.Count; i++)
         {

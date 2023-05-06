@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Manager;
 
 //重巡洋艦クラス
 public class HeavyCruiser : Ship
@@ -25,6 +26,8 @@ public class HeavyCruiser : Ship
     //ゲーム更新
     private void UpdateGame()
     {
+        if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
+
         if (Durable <= 0)
         {
             Durable = 0;

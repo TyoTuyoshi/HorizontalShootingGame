@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using Manager;
 
 //駆逐艦クラス
 public class Destroyer : Ship
@@ -24,6 +25,8 @@ public class Destroyer : Ship
     //ゲーム更新
     private void UpdateGame()
     {
+        if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
+
         //砲撃時間の加算
         bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
         

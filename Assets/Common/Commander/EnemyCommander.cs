@@ -44,15 +44,19 @@ public class EnemyCommander : MonoBehaviour
    /// </summary>
    private void UpdateGame()
    {
-      Phase current_phase = EnemyPhases[current_index];
-      var current_ship = current_phase.EnemyShips;
-
       //全滅フラグオン
-      if (current_phase.EnemyShips.Count == 0 && EnemyPhases.Count == 0)
+      try
+      {
+         if (EnemyPhases[current_index] == null) return;
+      }
+      catch (Exception e)
       {
          Annihilation = true;
          return;
       }
+      
+      Phase current_phase = EnemyPhases[current_index];
+      var current_ship = current_phase.EnemyShips;
 
       //フェーズ全滅時の処理
       if (IsAnnihilation(current_phase))
@@ -60,7 +64,14 @@ public class EnemyCommander : MonoBehaviour
          Debug.Log("敵艦隊全滅...");
          EnemyPhases.Remove(EnemyPhases[current_index]);
          //艦隊フェーズのシフト
-         ShiftCurrentPhase();
+         try
+         {
+            ShiftCurrentPhase();
+         }
+         catch (Exception e)
+         {
+            return;
+         }
       }
 
       //現在のフェーズの艦隊リスト

@@ -23,7 +23,7 @@ namespace Manager
         }
 
         //バトルの状態
-        enum BattleState
+        public enum BattleState
         {
             Start = 0,
             Fighing,
@@ -52,7 +52,13 @@ namespace Manager
         //進行時間
         private float time = 0.0f;
 
-        private BattleState battle_state = BattleState.Start;
+        //バトルステート
+        [SerializeField] private BattleState battle_state = BattleState.Start;
+        public BattleState State
+        {
+            get { return battle_state; }
+        }
+
 
         //バトルスコア判定用フラグ(Updateの足止め用)
         private bool[] score_flag = { false, false, false };
@@ -105,5 +111,6 @@ namespace Manager
 
             Debug.Log($"Result = {Result.GetHashCode()}");
         }
+        
     }
 }
