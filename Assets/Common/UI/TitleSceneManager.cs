@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class TitleSceneManager : MonoBehaviour
+public class TitleSceneManager : Singleton<MonoBehaviour>
 {
     [SerializeField] private UIDocument uiDocument;
     private Button test;

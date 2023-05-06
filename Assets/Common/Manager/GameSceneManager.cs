@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Manager
 {
     public class GameSceneManager : Singleton<GameSceneManager>
     {
+        //ゲームシーンのUI
+        [SerializeField] private UIDocument uiDocument = null;
+        
         /// <summary>
         ///戦績評価
         ///＊勝利条件＊
@@ -16,7 +21,7 @@ namespace Manager
         /// </summary>
         enum BattleScore
         {
-            S = 0, //勝利条件を全て達成
+            S , //勝利条件を全て達成
             A, //勝利条件が一つ欠ける
             B, //勝利条件が二つ欠ける
             C, //全滅
@@ -25,7 +30,7 @@ namespace Manager
         //バトルの状態
         public enum BattleState
         {
-            Start = 0,
+            Start,
             Fighing,
             Finish
         }
@@ -47,7 +52,7 @@ namespace Manager
         [SerializeField] private EnemyCommander enemy;
 
         //制限時間二分以内
-        private const float lim_time = 10.0f;
+        private const float lim_time = 120.0f;
 
         //進行時間
         private float time = 0.0f;
@@ -59,7 +64,6 @@ namespace Manager
             get { return battle_state; }
         }
 
-
         //バトルスコア判定用フラグ(Updateの足止め用)
         private bool[] score_flag = { false, false, false };
 
@@ -68,6 +72,9 @@ namespace Manager
             InitState();
         }
 
+        //チャージ技を発動するときのフラグ
+        public bool[] IsCharge = { false, false, false };
+
         /// <summary>
         ///ステータス初期化
         /// </summary>
@@ -75,6 +82,21 @@ namespace Manager
         {
             first_cnt = player.KANTAI.Count;
             Debug.Log($"Result = {Result.GetHashCode()}");
+
+            string[] btn_names = { "btn_torpedo", "btn_cannon", "btn_air" };
+            Button[] buttons = 
+            {
+                uiDocument.rootVisualElement.Query<Button>(btn_names[0]),
+                uiDocument.rootVisualElement.Query<Button>(btn_names[1]),
+                uiDocument.rootVisualElement.Query<Button>(btn_names[2]),
+            };
+            foreach (var btn in buttons.Select((v, i) => (v, i )))
+            {
+                btn.v.clicked += () =>
+                {
+                    IsCharge[btn.i] = (!IsCharge[btn.i]) ? true : false;
+                };
+            }
         }
 
         private void Update()
@@ -89,6 +111,8 @@ namespace Manager
         {
             //敵を全滅しない間は戦闘中　全滅したら終了
             battle_state = (enemy.Annihilation) ? BattleState.Finish : BattleState.Fighing;
+
+            Debug.Log($"{IsCharge[0]} {IsCharge[1]} {IsCharge[2]}");
             
             //戦闘中は時間を加算
             if (battle_state == BattleState.Fighing) time += Time.deltaTime;
@@ -109,8 +133,32 @@ namespace Manager
             //全滅すると最低評価
             if (player.Annihilation) Result = BattleScore.C;
 
-            Debug.Log($"Result = {Result.GetHashCode()}");
+            //Debug.Log($"Result = {Result.GetHashCode()}");
         }
         
+        /// <summary>
+        /// ボタンで指示できるチャージ技
+        /// </summary>
+        enum ChargeAttack
+        {
+            Torpedo,
+            Battleship,
+            Aircarrier,
+        }
+
+        //ボタンアクションの設定
+        private void ButtonAction(int num)
+        {
+            switch ((ChargeAttack)num)
+            {
+                case ChargeAttack.Torpedo:
+                    break;
+                case ChargeAttack.Battleship:
+                    break;
+                case ChargeAttack.Aircarrier:
+                    break;
+            }
+        }
+
     }
 }
