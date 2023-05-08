@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Manager;
+using Shooting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -13,7 +14,7 @@ public class Commander : MonoBehaviour
     [SerializeField] private EnemyCommander enemy_commander;
 
     //艦隊の編隊
-    [FormerlySerializedAs("KAN_SEN")] [Header("艦隊")] public List<Ship> KANTAI = new List<Ship>();
+    [FormerlySerializedAs("KANTAI")] [FormerlySerializedAs("KAN_SEN")] [Header("艦隊")] public List<Ship> MyShips = new List<Ship>();
 
     //ジョイスティック入力
     private Vector2 move = new Vector2();
@@ -31,12 +32,14 @@ public class Commander : MonoBehaviour
     private InputAction move_input;
     private void Start()
     {
+        var t = GameManager.Instance.PlayAbleShip;
+        
         PlayerInput playerInput = GetComponent<PlayerInput>();
         move_input = playerInput.currentActionMap["Move"];
         Debug.Log(move_input.ReadValue<Vector2>());
 
         //移動制御可能範囲の指定
-        foreach (var ship in KANTAI)
+        foreach (var ship in MyShips)
         { ship.Range = range; }
     }
 
@@ -92,7 +95,7 @@ public class Commander : MonoBehaviour
         //バトルが終了ならリターン
         if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
         //艦隊が減るほどスピードが早くなる
-        speed = ShipSpeed(KANTAI);
+        speed = ShipSpeed(MyShips);
         time += Time.deltaTime;
 
         //砲撃対象の指揮
@@ -111,7 +114,7 @@ public class Commander : MonoBehaviour
 
             if (targets.Count != 0)
             {
-                foreach (var ship in KANTAI)
+                foreach (var ship in MyShips)
                 {
                     //最近距離ターゲットのインデックスを取得
                     int index = ClosestTargetIndex(ship, targets);
@@ -121,21 +124,21 @@ public class Commander : MonoBehaviour
         }
         
         //全滅判定
-        if (KANTAI.Count == 0)
+        if (MyShips.Count == 0)
         {
             Debug.Log("全滅...");
             Annihilation = true;
         }
 
         //撃沈判定
-        for (int i = KANTAI.Count - 1; i >= 0; i--)
+        for (int i = MyShips.Count - 1; i >= 0; i--)
         {
-            if (KANTAI[i].ShipState == Ship.State.Sunk)
+            if (MyShips[i].ShipState == Ship.State.Sunk)
             {
                 //破棄リスト送り
                 //disposal_list.Add(KANTAI[i].KANSEN);
-                disposal_list.Add(KANTAI[i]);
-                KANTAI.Remove(KANTAI[i]);
+                disposal_list.Add(MyShips[i]);
+                MyShips.Remove(MyShips[i]);
             }
         }
         
@@ -144,8 +147,8 @@ public class Commander : MonoBehaviour
             //上向き移動時最奥順
             if (move.y <= 0)
             {
-                int i = KANTAI.Count - 1;
-                foreach (var ship in KANTAI)
+                int i = MyShips.Count - 1;
+                foreach (var ship in MyShips)
                 {
                     ship.Renderer.sortingOrder = i;
                     i--;
@@ -155,7 +158,7 @@ public class Commander : MonoBehaviour
             else if (move.y > 0)
             {
                 int i = 0;
-                foreach (var ship in KANTAI)
+                foreach (var ship in MyShips)
                 {
                     ship.Renderer.sortingOrder = i;
                     i++;
@@ -177,17 +180,17 @@ public class Commander : MonoBehaviour
         if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
         
         //各艦船の移動指揮
-        for (int i = 0; i < KANTAI.Count; i++)
+        for (int i = 0; i < MyShips.Count; i++)
         {
             //先頭艦のみ操作
             if (i == 0)
             {
-                KANTAI[i].Move(move, speed);
+                MyShips[i].Move(move, speed);
             }
             else
             {
                 //任意の距離を設定し、その距離内であれば追従しない。距離を越えた場合追従を始める。
-                KANTAI[i].MoveFollowing(KANTAI[i - 1].transform.position, distance);
+                MyShips[i].MoveFollowing(MyShips[i - 1].transform.position, distance);
             }
         }
     }

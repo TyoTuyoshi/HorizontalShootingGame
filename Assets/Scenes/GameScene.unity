@@ -667,7 +667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324499699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.8712947, y: 0.61649996, z: -10}
+  m_LocalPosition: {x: -2.8713346, y: 0.61647, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -721,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7354352530058671011, guid: 2b99e69a262138c47a9cfb74792b2593, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7354352530058671013, guid: 2b99e69a262138c47a9cfb74792b2593, type: 3}
       propertyPath: m_RootOrder
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy_commander: {fileID: 1439218469}
-  KANTAI:
+  MyShips:
   - {fileID: 2104145123}
   - {fileID: 1147477593}
   - {fileID: 2131472426}
@@ -2130,7 +2130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814683741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0386844, y: 0.62, z: -10}
+  m_LocalPosition: {x: 1.0344987, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

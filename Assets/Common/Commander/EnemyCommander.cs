@@ -89,7 +89,7 @@ public class EnemyCommander : MonoBehaviour
       //砲撃対象の指揮
       //各艦船からの最近距離の敵をマーク
       {
-         var targets = player_commander.KANTAI;
+         var targets = player_commander.MyShips;
          if (targets.Count != 0)
          {
             foreach (var ship in current_ship)

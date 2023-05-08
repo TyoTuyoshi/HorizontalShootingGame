@@ -80,7 +80,7 @@ namespace Manager
         /// </summary>
         private void InitState()
         {
-            first_cnt = player.KANTAI.Count;
+            first_cnt = player.MyShips.Count;
             Debug.Log($"Result = {Result.GetHashCode()}");
 
             string[] btn_names = { "btn_torpedo", "btn_cannon", "btn_air" };
@@ -124,7 +124,7 @@ namespace Manager
             }
 
             //プレイヤー側が撃沈されると評価低下
-            if (player.KANTAI.Count < first_cnt && !score_flag[1])
+            if (player.MyShips.Count < first_cnt && !score_flag[1])
             {
                 Result++;
                 score_flag[1] = true;

@@ -3,27 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class GameManager : Singleton<GameManager>
+namespace Shooting
 {
-    /// <summary>
-    ///戦績評価
-    ///＊勝利条件＊
-    /// 1.制限時間内に敵艦隊を撃破
-    /// 2.味方が一隻も撃沈されない
-    /// 3.敵艦隊を撃破
-    /// </summary>
-    public enum BattleScore
+    public sealed class GameManager : Singleton<GameManager>
     {
-        S,//勝利条件を全て達成
-        A,//勝利条件が一つ欠ける
-        B,//勝利条件が二つ欠ける
-        C,//全滅
-    }
-    
-    [System.NonSerialized] public BattleScore Result;
-    [System.NonSerialized] public int TotalEXP;
-    private void Update()
-    {
-        
+        /// <summary>
+        /// シーンステート
+        /// </summary>
+        public enum SceneState
+        {
+            Title,
+            Edit,
+            Game,
+        }
+        //操作できる艦隊
+        //EditSceneで編隊
+        private List<Ship> myships;
+
+        public List<Ship> PlayAbleShip
+        {
+            set { myships = value; }
+            get
+            {
+                if (myships is null)
+                {
+                    Debug.LogError("船がありません");
+                }
+                return myships;
+            }
+        }
     }
 }
