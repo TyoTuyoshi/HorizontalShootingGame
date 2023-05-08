@@ -21,6 +21,12 @@ public class Ship : MonoBehaviour
         get { return target; }
     }
 
+    [SerializeField] private static int level = 1;
+    public int Level
+    {
+        get { return level; }
+    }
+
     //敵扱いフラグ
     //falseなら味方　trueなら敵
     [Header("敵フラグ"),SerializeField] private bool is_enemy = false;

@@ -16,10 +16,10 @@ namespace Shooting
             Edit,
             Game,
         }
+        
         //操作できる艦隊
-        //EditSceneで編隊
+        //EditSceneで編隊できる
         private List<Ship> myships;
-
         public List<Ship> PlayAbleShip
         {
             set { myships = value; }
