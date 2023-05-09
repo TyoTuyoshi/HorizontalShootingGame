@@ -162,25 +162,6 @@ public class Ship : MonoBehaviour
             UniqueCharge *= 5;
         }
     }
-    
-    //砲撃間隔カウンタ
-    //{通常砲撃チャージタイム,固有弾幕チャージタイム,仮}
-
-    private void Update()
-    {
-        UpdateGame();
-    }
-
-    //更新
-    private void UpdateGame()
-    {
-        //耐久値の監視(撃沈)
-        /*if (durable <= 0)
-        {
-            durable = 0;
-            ship_state = State.Sunk;
-        }*/
-    }
 
     //移動
     public void Move(Vector2 pos, float speed)

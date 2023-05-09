@@ -65,7 +65,7 @@ public class Destroyer : Ship
         //演算用円周率
         float pi = Mathf.PI;
 
-        //弾幕展開
+        //弾幕展
         for (int i = 0; i < n; i++)
         {
             yield return new WaitForSecondsRealtime(0.05f);

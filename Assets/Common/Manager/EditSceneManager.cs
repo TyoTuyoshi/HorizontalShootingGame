@@ -12,15 +12,20 @@ namespace Manager
         [SerializeField] private UIDocument uiDocument = null;
         private const int size = 3;
         private VisualElement[] panel;
+        private Button[] btn_add;
         
         private void Start()
         {
-            //panel[0] = uiDocument.rootVisualElement.Query<VisualElement>("");
+            btn_add[0] = uiDocument.rootVisualElement.Query<Button>("btn_add1");
+            
         }
 
-        public void SetShips(int i)
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetShips()
         {
-            
+            GameManager.Instance.PlayAbleShip = new List<Ship>();
         }
     }
 }
