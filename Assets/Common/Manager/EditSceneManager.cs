@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Shooting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 namespace Manager
 {
@@ -16,8 +16,11 @@ namespace Manager
         
         private void Start()
         {
-            btn_add[0] = uiDocument.rootVisualElement.Query<Button>("btn_add1");
-            
+            //シーンのフェードイン/アウト用Imageの設定
+            GameManager.Instance.SetFadeImage();
+            //btn_add[0] = uiDocument.rootVisualElement.Query<Button>("btn_add1");
+            //Scene.SceneFadeIN("GameScene", 1.0f);
+            GameManager.Instance.scene.SceneFadeIN("GameScene",1.0f);
         }
 
         /// <summary>

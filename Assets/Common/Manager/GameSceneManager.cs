@@ -69,6 +69,8 @@ namespace Manager
 
         private void Start()
         {
+            //シーンのフェードアウト
+            GameManager.Instance.scene.SceneFadeOUT(1.0f);
             InitState();
         }
 
