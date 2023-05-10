@@ -32,6 +32,12 @@ public class Commander : MonoBehaviour
     private void Start()
     {
         var t = GameManager.Instance.PlayAbleShip;
+
+        Debug.Log("debug");
+        foreach (var s in t)
+        {
+            Debug.Log(s.name);
+        }
         
         PlayerInput playerInput = GetComponent<PlayerInput>();
         move_input = playerInput.currentActionMap["Move"];

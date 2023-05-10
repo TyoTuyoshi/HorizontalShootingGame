@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Manager
 {
-    public sealed class GameManager : Singleton<GameManager>
+    public sealed class FadeManager : Singleton<FadeManager>
     {
         /// <summary>
         /// シーンステート
@@ -19,38 +19,28 @@ namespace Manager
         }
 
         //フェード用のスプライト
-        public GameObject FadeObj;
         public Image FadeImage;
-        public Scene scene;
+        //SceneBaseプレハブから取得
+        public Scene SceneObj = null;
 
         public void SetFadeImage()
         {
             FadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
         }
-        /*
-        public void CreateImage()
-        {
-            GameObject image;
-            if (!GameObject.Find("FadeImage"))
-            {
-                Debug.Log("すでに存在");
-            }
-            else
-            {
-                image = Instantiate(FadeObj) as GameObject;
-                image.name = "FadeImage";
-                image.transform.parent = GameObject.Find("Canvas").transform;
-            }
-        }*/
-        
-        
 
-        //操作できる艦隊
-        //EditSceneで編隊できる
-        private List<Ship> myships;
+        protected override void Awake()
+        {
+        }
+        /*
+        [SerializeField] private List<Ship> myships;
         public List<Ship> PlayAbleShip
         {
-            set { myships = value; }
+            set
+            {
+                myships = value;
+                Debug.Log($"{myships[0]} {myships.Count}");
+            }
+            /*
             get
             {
                 if (myships is null)
@@ -59,6 +49,6 @@ namespace Manager
                 }
                 return myships;
             }
-        }
+        }*/
     }
 }

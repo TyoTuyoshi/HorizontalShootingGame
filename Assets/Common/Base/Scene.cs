@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace Manager
 {
+    /// <summary>
+    /// MonoBehaviourを継承しないとコールチンを呼べなくなってるので、
+    /// GameManagerでインスタンスを作っておく
+    /// 呼び出しはGameManagerから
+    /// </summary>
     public class Scene : MonoBehaviour
     {
         /// <summary>
@@ -12,7 +17,7 @@ namespace Manager
         /// <param name="name">Scene名</param>
         /// <param name="wait">ロードまでの待ち時間</param>
         /// <returns></returns>
-        private IEnumerator BaseFade(string name, float wait = 0.1f, bool is_fadein = true)
+        private IEnumerator BaseFade(float wait = 0.1f, bool is_fadein = true, string name = "")
         {
             yield return null;
 
@@ -29,8 +34,8 @@ namespace Manager
                 //フェードアウト
                 else color.a = 1.0f - (time / wait);
 
-                GameManager.Instance.FadeImage.color = color;
-                Debug.Log(time);
+                FadeManager.Instance.FadeImage.color = color;
+                //Debug.Log(time);
                 yield return null;
             }
             
@@ -40,12 +45,12 @@ namespace Manager
 
         public void SceneFadeIN(string name, float wait = 0.1f)
         {
-            StartCoroutine(BaseFade(name, wait, true));
+            StartCoroutine(BaseFade(wait, true, name));
         }
 
         public void SceneFadeOUT(float wait)
         {
-            StartCoroutine(BaseFade(name, wait, false));
+            StartCoroutine(BaseFade(wait, false));
         }
     }
 }

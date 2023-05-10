@@ -70,8 +70,9 @@ namespace Manager
         private void Start()
         {
             //シーンのフェードアウト
-            GameManager.Instance.scene.SceneFadeOUT(1.0f);
+            FadeManager.Instance.SceneObj.SceneFadeOUT(1.0f);
             InitState();
+            //GameManager.Instance.SceneObj.SceneFadeIN("EditScene", 1.0f);
         }
 
         //チャージ技を発動するときのフラグ
@@ -114,7 +115,7 @@ namespace Manager
             //敵を全滅しない間は戦闘中　全滅したら終了
             battle_state = (enemy.Annihilation) ? BattleState.Finish : BattleState.Fighing;
 
-            Debug.Log($"{IsCharge[0]} {IsCharge[1]} {IsCharge[2]}");
+            //Debug.Log($"{IsCharge[0]} {IsCharge[1]} {IsCharge[2]}");
             
             //戦闘中は時間を加算
             if (battle_state == BattleState.Fighing) time += Time.deltaTime;
