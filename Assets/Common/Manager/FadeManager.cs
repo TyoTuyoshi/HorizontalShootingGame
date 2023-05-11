@@ -25,7 +25,10 @@ namespace Manager
 
         public void SetFadeImage()
         {
-            FadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
+            //FadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
+            //UIElementの操作が通らないためfalse
+            //フェード時にtrue
+            FadeImage.gameObject.SetActive(false);
         }
 
         protected override void Awake()

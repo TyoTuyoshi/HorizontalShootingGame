@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:ListView focusable="true" name="ls_ships" style="width: 1370px; height: 900px; color: rgba(217, 217, 217, 255); background-color: rgba(104, 112, 135, 255);" />
+</ui:UXML>

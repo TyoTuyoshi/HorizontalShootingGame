@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Ship : MonoBehaviour
 {
     [Header("撃てる弾")] public CannonBall[] CannonBalls;

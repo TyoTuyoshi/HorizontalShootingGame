@@ -26,7 +26,11 @@ namespace Manager
             SetShips();
             //btn_add[0] = uiDocument.rootVisualElement.Query<Button>("btn_add1");
             //Scene.SceneFadeIN("GameScene", 1.0f);
-            FadeManager.Instance.SceneObj.SceneFadeIN("GameScene",1.0f);
+            
+            //フェードイン
+            //キャンバス非表示を解除
+            //FadeManager.Instance.FadeImage.gameObject.SetActive(true);
+            //FadeManager.Instance.SceneObj.SceneFadeIN("GameScene",1.0f);
         }
         
         /// <summary>
