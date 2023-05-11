@@ -1,3 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:ListView focusable="true" name="ls_ships" style="width: 1370px; height: 900px; color: rgba(217, 217, 217, 255); background-color: rgba(104, 112, 135, 255);" />
+    <ui:ListView focusable="true" name="ls_ships" style="width: 1370px; height: 900px; color: rgb(217, 217, 217); background-color: rgb(104, 112, 135);" />
+    <ui:Button text="除隊" display-tooltip-when-elided="true" name="btn_remove" style="position: absolute; top: 636px; left: 1114px; height: 111px; width: 185px; -unity-font-style: bold; font-size: 30px;" />
+    <ui:Button text="戻る" display-tooltip-when-elided="true" name="btn_back" style="position: absolute; top: 518px; left: 1114px; height: 111px; width: 185px; -unity-font-style: bold; font-size: 30px;" />
 </ui:UXML>
