@@ -45,25 +45,30 @@ public sealed class EditButtonController
         //艦船追加のアクション
         btn_ship.clicked += () =>
         {
+            int index = EditSceneManager.Instance.index;
+
             //追加
-            EditSceneManager.Instance.ships.Add(ship);
-            
-            //追加した艦船データを保存しておく
+            //まだ登録されていなければ追加
+            if (EditSceneManager.Instance.AddButtons[index].ship == null)
+            {
+                EditSceneManager.Instance.ships.Add(ship);
+            }
+            else
+            {
+                //既に登録されている場合は入れ替える。
+                EditSceneManager.Instance.ships.Remove(EditSceneManager.Instance.AddButtons[index].ship);
+                EditSceneManager.Instance.ships.Add(ship);
+            }
             
             //アクセス元のボタンの背景等を変更
-            int index = EditSceneManager.Instance.index;
             Debug.Log(index);
             var asb = EditSceneManager.Instance.AddButtons[index];
-
-            asb.ship = ship;
-            
             asb.btn.text = ship.Name;
             asb.btn.style.backgroundImage = new StyleBackground(renderer.sprite);
             asb.btn.style.unityBackgroundImageTintColor = renderer.color;
-            
-            //btn.text = ship.Name;
-            //btn.style.backgroundImage = new StyleBackground(renderer.sprite);
-            //btn.style.unityBackgroundImageTintColor = renderer.color;
+          
+            //追加した艦船データを保存しておく
+            asb.ship = ship;
             
             //追加後、選択パネルを非表示にする。
             EditSceneManager.Instance.ShipViewer.SetActive(false);

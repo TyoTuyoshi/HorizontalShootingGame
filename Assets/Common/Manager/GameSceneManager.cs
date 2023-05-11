@@ -83,6 +83,7 @@ namespace Manager
         /// </summary>
         private void InitState()
         {
+            //出撃時の艦隊規模(艦船の数)
             first_cnt = player.MyShips.Count;
             Debug.Log($"Result = {Result.GetHashCode()}");
 

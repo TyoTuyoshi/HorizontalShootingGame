@@ -18,7 +18,7 @@ public class TitleSceneManager : Singleton<MonoBehaviour>
 
     private void OnButtonClick()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("EditScene");
     }
 
     // Update is called once per frame

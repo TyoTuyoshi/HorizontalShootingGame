@@ -31,10 +31,16 @@ public class Commander : MonoBehaviour
     private InputAction move_input;
     private void Start()
     {
-        var t = GameManager.Instance.PlayAbleShip;
+        //ゲームマネージャから艦船元を取得
+        var ships = GameManager.Instance.PlayAbleShip;
+        //インスタンスの生成
+        foreach (var ship in ships)
+        {
+            MyShips.Add(Instantiate(ship) as Ship);
+        }
 
         Debug.Log("debug");
-        foreach (var s in t)
+        foreach (var s in ships)
         {
             Debug.Log(s.name);
         }

@@ -15,8 +15,8 @@ namespace Manager
     /// </summary>
     public class AddShipButton
     {
-        public Button btn;//ボタン
-        public Ship ship;//選んだデータ
+        public Button btn;  //ボタン
+        public Ship ship;   //選んだ艦船
     }
 
     /// <summary>
@@ -69,28 +69,44 @@ namespace Manager
             Button btn_gogame = root.Query<Button>("btn_gogame");
             btn_gogame.clicked += () =>
             {
-                //ゲームマネージャに登録
-                SetShips();
-                
+                //ゲームマネージャに艦船を登録
+                SetGMShips();
+                //フェードイン
+                //キャンバス非表示を解除
+                FadeManager.Instance.FadeImage.gameObject.SetActive(true);
+                FadeManager.Instance.SceneObj.SceneFadeIN("GameScene",1.0f);
             };
-            //艦船登録
 
-            //フェードイン
-            //キャンバス非表示を解除
-            //FadeManager.Instance.FadeImage.gameObject.SetActive(true);
-            //FadeManager.Instance.SceneObj.SceneFadeIN("GameScene",1.0f);
+            //タイトルに戻る(バックボタン)
+            Button btn_back = root.Query<Button>("btn_back");
+            btn_back.clicked += () =>
+            {
+                ResetShips();
+                FadeManager.Instance.FadeImage.gameObject.SetActive(true);
+                FadeManager.Instance.SceneObj.SceneFadeIN("TitleScene", 1.0f);
+            };
         }
         /// <summary>
-        /// マネージャーにshipを渡す
+        /// ゲームマネージャーにshipを渡す
         /// </summary>
-        public void SetShips()
+        public void SetGMShips()
         {
             GameManager.Instance.PlayAbleShip = ships;
         }
+
+        /// <summary>
+        /// 登録した艦船を初期化
+        /// </summary>
+        public void ResetShips()
+        {
+            GameManager.Instance.PlayAbleShip = new List<Ship>();
+            ships = new List<Ship>();
+        }
+
         /// <summary>
         /// データベースから艦船を取ってくる。
         /// </summary>
-        public void GetSgips()
+        public void GetDBSgips()
         {
             ships = ShipDataBase.Instance.ShipDB.GetRange(0, 3);
         }
