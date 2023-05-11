@@ -30,19 +30,21 @@ public class ShipListView : MonoBehaviour
             //アクセス元の情報をクリア
             int index = EditSceneManager.Instance.index;
             Debug.Log(index);
+
+            //追加ボタン
+            var asb = EditSceneManager.Instance.AddButtons[index];
             //アクセス元の艦船を除隊
-            /*
-            if (EditSceneManager.Instance.ships.Count != 0 &&
-                EditSceneManager.Instance.AddButtons[index].text != $"追加{index + 1}")
+            if (asb.ship != null)
             {
-                var ship = EditSceneManager.Instance.ships[index];
-                EditSceneManager.Instance.ships.Remove(ship);
+                //var ship = EditSceneManager.Instance.ships[index];
+                //艦船の除隊
+                EditSceneManager.Instance.ships.Remove(asb.ship);
                 //ボタンの背景などをクリア
-                var btn = EditSceneManager.Instance.AddButtons[index];
-                btn.text = $"追加{index + 1}";
-                btn.style.backgroundImage = null;
-                btn.style.unityBackgroundImageTintColor = Color.white;
-            }*/
+                //var asb = EditSceneManager.Instance.AddButtons[index];
+                asb.btn.text = $"追加{index + 1}";
+                asb.btn.style.backgroundImage = null;
+                asb.btn.style.unityBackgroundImageTintColor = Color.white;
+            }
 
             //除隊後、選択パネルを非表示にする。
             EditSceneManager.Instance.ShipViewer.SetActive(false);

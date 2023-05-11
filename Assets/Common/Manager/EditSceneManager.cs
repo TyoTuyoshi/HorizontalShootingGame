@@ -9,6 +9,16 @@ using Image = UnityEngine.UI.Image;
 
 namespace Manager
 {
+
+    /// <summary>
+    /// 追加ボタンクラス
+    /// </summary>
+    public class AddShipButton
+    {
+        public Button btn;//ボタン
+        public Ship ship;//選んだデータ
+    }
+
     /// <summary>
     /// EditSceneのGUIなどのマネージャー
     /// </summary>
@@ -23,7 +33,8 @@ namespace Manager
         public List<Ship> ships = new List<Ship>();
 
         //艦船追加ボタン
-        [System.NonSerialized] public List<Button> AddButtons = new List<Button>(); 
+        [System.NonSerialized] public List<AddShipButton> AddButtons = new List<AddShipButton>(); 
+
 
         //選択した追加ボタンの判別用フラグ
         public int index = 0;
@@ -34,18 +45,24 @@ namespace Manager
             
             var root = uiDocument.rootVisualElement;
             //追加ボタンの取得
-            AddButtons.Add(root.Query<Button>("btn_add1"));
-            AddButtons.Add(root.Query<Button>("btn_add2"));
-            AddButtons.Add(root.Query<Button>("btn_add3"));
-
-            foreach (var btn in AddButtons.Select((v, i) => (v, i )))
             {
-                btn.v.clicked += () =>
+                for (int i = 0; i < 3; i++)
                 {
-                    ShipViewer.SetActive(true);
-                    //押されたボタン番号
-                    index = btn.i;
-                };
+                    AddShipButton asb = new AddShipButton();
+                    asb.btn = root.Query<Button>($"btn_add{i + 1}");
+                    asb.ship = null;
+                    AddButtons.Add(asb);
+                }
+                //ボタンイベント(艦船選択パネル表示)
+                foreach (var asb in AddButtons.Select((v, i) => (v, i)))
+                {
+                    asb.v.btn.clicked += () =>
+                    {
+                        ShipViewer.SetActive(true);
+                        //どこのボタンが押されたかのフラグ用
+                        index = asb.i;
+                    };
+                }
             }
 
             //出撃ボタン
