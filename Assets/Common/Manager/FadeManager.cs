@@ -34,24 +34,5 @@ namespace Manager
         protected override void Awake()
         {
         }
-        /*
-        [SerializeField] private List<Ship> myships;
-        public List<Ship> PlayAbleShip
-        {
-            set
-            {
-                myships = value;
-                Debug.Log($"{myships[0]} {myships.Count}");
-            }
-            /*
-            get
-            {
-                if (myships is null)
-                {
-                    Debug.LogError("船がありません");
-                }
-                return myships;
-            }
-        }*/
     }
 }

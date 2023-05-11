@@ -16,16 +16,14 @@ public sealed class ListViewController
 
         ls_ships.makeItem = () =>
         {
-            // リスト要素をインスタンス化して返す
             var element = _elementTemplate.Instantiate();
-            var buttonController = new EditButtonController(element);//,new Ship());
-            element.userData = buttonController; // ControllerはuserDataという汎用データ受け渡し用フィールドに格納しておく
+            var buttonController = new EditButtonController(element);
+            element.userData = buttonController;
             return element;
         };
 
         ls_ships.bindItem = (item, index) =>
         {
-            // リスト要素にデータを設定する
             var controller = (EditButtonController)item.userData;
             controller.SetStatus(ships[index]);
         };

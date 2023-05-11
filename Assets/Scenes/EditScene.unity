@@ -507,6 +507,7 @@ MonoBehaviour:
   uiDocument: {fileID: 673366718}
   ShipViewer: {fileID: 1840469256}
   ships: []
+  index: 0
 --- !u!4 &1374635405
 Transform:
   m_ObjectHideFlags: 0
@@ -678,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85247c6351af4d648aad1b59e0d52614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _elementTemplate: {fileID: 9197481963319205126, guid: db16a65c82ccaa54e887abd8d0300f8c, type: 3}
+  vtree_elements: {fileID: 9197481963319205126, guid: db16a65c82ccaa54e887abd8d0300f8c, type: 3}
 --- !u!1 &1867959230
 GameObject:
   m_ObjectHideFlags: 0
