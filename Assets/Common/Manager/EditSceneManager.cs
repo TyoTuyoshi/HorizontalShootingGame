@@ -16,7 +16,7 @@ namespace Manager
     public class AddShipButton
     {
         public Button btn;  //ボタン
-        public Ship ship;   //選んだ艦船
+        public Ship stock_ship;   //選んだ艦船
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace Manager
                 {
                     AddShipButton asb = new AddShipButton();
                     asb.btn = root.Query<Button>($"btn_add{i + 1}");
-                    asb.ship = null;
+                    asb.stock_ship = null;
                     AddButtons.Add(asb);
                 }
                 //ボタンイベント(艦船選択パネル表示)

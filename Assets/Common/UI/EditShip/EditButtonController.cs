@@ -49,14 +49,14 @@ public sealed class EditButtonController
 
             //追加
             //まだ登録されていなければ追加
-            if (EditSceneManager.Instance.AddButtons[index].ship == null)
+            if (EditSceneManager.Instance.AddButtons[index].stock_ship == null)
             {
                 EditSceneManager.Instance.ships.Add(ship);
             }
             else
             {
                 //既に登録されている場合は入れ替える。
-                EditSceneManager.Instance.ships.Remove(EditSceneManager.Instance.AddButtons[index].ship);
+                EditSceneManager.Instance.ships.Remove(EditSceneManager.Instance.AddButtons[index].stock_ship);
                 EditSceneManager.Instance.ships.Add(ship);
             }
             
@@ -68,7 +68,7 @@ public sealed class EditButtonController
             asb.btn.style.unityBackgroundImageTintColor = renderer.color;
           
             //追加した艦船データを保存しておく
-            asb.ship = ship;
+            asb.stock_ship = ship;
             
             //追加後、選択パネルを非表示にする。
             EditSceneManager.Instance.ShipViewer.SetActive(false);

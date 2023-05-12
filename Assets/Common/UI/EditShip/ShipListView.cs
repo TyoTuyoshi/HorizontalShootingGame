@@ -34,16 +34,16 @@ public class ShipListView : MonoBehaviour
             //追加ボタン
             var asb = EditSceneManager.Instance.AddButtons[index];
             //アクセス元の艦船を除隊
-            if (asb.ship != null)
+            if (asb.stock_ship != null)
             {
                 //var ship = EditSceneManager.Instance.ships[index];
                 //艦船の除隊
-                EditSceneManager.Instance.ships.Remove(asb.ship);
+                EditSceneManager.Instance.ships.Remove(asb.stock_ship);
                 //ボタンの背景などをクリア
-                //var asb = EditSceneManager.Instance.AddButtons[index];
                 asb.btn.text = $"追加{index + 1}";
                 asb.btn.style.backgroundImage = null;
                 asb.btn.style.unityBackgroundImageTintColor = Color.white;
+                asb.stock_ship = null;
             }
 
             //除隊後、選択パネルを非表示にする。
