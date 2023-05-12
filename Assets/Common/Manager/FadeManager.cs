@@ -8,31 +8,20 @@ namespace Manager
 {
     public sealed class FadeManager : Singleton<FadeManager>
     {
-        /// <summary>
-        /// シーンステート
-        /// </summary>
-        public enum SceneState
-        {
-            Title,
-            Edit,
-            Game,
-        }
-
         //フェード用のスプライト
         public Image FadeImage;
         //SceneBaseプレハブから取得
         public Scene SceneObj = null;
 
-        public void SetFadeImage()
+        /// <summary>
+        /// フェードイメージの有効
+        /// SetActive()のラッパ
+        /// </summary>
+        /// <param name="active">SetActive()</param>
+        public void SetFadeImage(bool active)
         {
-            //FadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
-            //UIElementの操作が通らないためfalse
             //フェード時にtrue
-            FadeImage.gameObject.SetActive(false);
-        }
-
-        protected override void Awake()
-        {
+            FadeImage.gameObject.SetActive(active);
         }
     }
 }

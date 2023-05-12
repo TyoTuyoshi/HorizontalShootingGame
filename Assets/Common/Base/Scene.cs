@@ -4,11 +4,6 @@ using UnityEngine;
 
 namespace Manager
 {
-    /// <summary>
-    /// MonoBehaviourを継承しないとコールチンを呼べなくなってるので、
-    /// GameManagerでインスタンスを作っておく
-    /// 呼び出しはGameManagerから
-    /// </summary>
     public class Scene : MonoBehaviour
     {
         /// <summary>

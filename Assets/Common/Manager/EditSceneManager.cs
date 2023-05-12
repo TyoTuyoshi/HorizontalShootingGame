@@ -33,16 +33,23 @@ namespace Manager
         public List<Ship> ships = new List<Ship>();
 
         //艦船追加ボタン
-        [System.NonSerialized] public List<AddShipButton> AddButtons = new List<AddShipButton>(); 
+        [System.NonSerialized] public List<AddShipButton> AddButtons = new List<AddShipButton>();
 
+        //戻るボタン
+        private Button btn_gogame;
 
         //選択した追加ボタンの判別用フラグ
         public int index = 0;
         private void Start()
         {
             //シーンのフェードイン/アウト用Imageの設定
-            FadeManager.Instance.SetFadeImage();
-            
+            FadeManager.Instance.SetFadeImage(true);
+            //遷移時間
+            const float fade_time = 0.5f;
+            FadeManager.Instance.SceneObj.SceneFadeOUT(fade_time);
+            //フェードアウト後にfalse
+            Invoke("SetFadeImage",fade_time);
+
             var root = uiDocument.rootVisualElement;
             //追加ボタンの取得
             {
@@ -66,15 +73,18 @@ namespace Manager
             }
 
             //出撃ボタン
-            Button btn_gogame = root.Query<Button>("btn_gogame");
+            btn_gogame = root.Query<Button>("btn_gogame");
             btn_gogame.clicked += () =>
             {
-                //ゲームマネージャに艦船を登録
-                SetGMShips();
-                //フェードイン
-                //キャンバス非表示を解除
-                FadeManager.Instance.FadeImage.gameObject.SetActive(true);
-                FadeManager.Instance.SceneObj.SceneFadeIN("GameScene",1.0f);
+                if (ships.Count > 0)
+                {
+                    //ゲームマネージャに艦船を登録
+                    SetGMShips();
+                    //フェードイン
+                    //キャンバス非表示を解除
+                    FadeManager.Instance.FadeImage.gameObject.SetActive(true);
+                    FadeManager.Instance.SceneObj.SceneFadeIN("GameScene", 1.0f);
+                }
             };
 
             //タイトルに戻る(バックボタン)
@@ -86,6 +96,21 @@ namespace Manager
                 FadeManager.Instance.SceneObj.SceneFadeIN("TitleScene", 1.0f);
             };
         }
+
+        private void Update()
+        {
+            //出撃ボタン用の監視メッセージ
+            btn_gogame.text = (ships.Count > 0) ? "出撃" : "一隻以上必要です";
+        }
+
+        /// <summary>
+        ///Invoke()呼び出し用ラッパ
+        /// </summary>
+        private void SetFadeImage()
+        {
+            FadeManager.Instance.SetFadeImage(false);
+        }
+
         /// <summary>
         /// ゲームマネージャーにshipを渡す
         /// </summary>
