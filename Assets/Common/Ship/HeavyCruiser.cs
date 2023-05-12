@@ -62,7 +62,7 @@ public class HeavyCruiser : Ship
         Debug.Log(Name + ":固有弾幕展開!");
 
         //連射回数
-        int n = CannonBalls[1].ContinuousCanon.contisous;
+        int n = CannonBalls[1].attack.contisous;
 
         //弾幕展開
         for (int i = 0; i < n; i++)

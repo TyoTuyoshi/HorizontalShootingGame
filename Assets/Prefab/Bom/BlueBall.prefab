@@ -140,10 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96b6a8ce5177084b8bedca19caa50f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanContinous: 0
-  ContinuousCanon:
+  attack:
     contisous: 36
-    power: 20
+    power: 10
   velocity: 25
 --- !u!1 &8142927748567249800
 GameObject:

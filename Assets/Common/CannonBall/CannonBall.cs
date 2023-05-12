@@ -6,9 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CannonBall : MonoBehaviour
 {
-    //連続砲撃用
+    //砲弾の攻撃スペック
     [System.Serializable]
-    public struct ContinuousAttack
+    public struct Attack
     {
         public int contisous;   //連続回数
         public int power;       //火力
@@ -22,7 +22,7 @@ public class CannonBall : MonoBehaviour
     private int power_attenuation = 0;
     
     //連続砲撃スペック
-    public ContinuousAttack ContinuousCanon;
+    public Attack attack;
 
     //味方の弾か敵の弾か?
     //trueなら敵,falseなら味方
@@ -51,13 +51,7 @@ public class CannonBall : MonoBehaviour
     }
     //進行速度(プレハブごとに指定する用)
     [SerializeField] protected float velocity = 1.0f;
-    /*
-    public float Velocity
-    {
-        set { velocity = value; }
-        get { return velocity; }
-    }*/
-
+   
     //砲弾の作成(艦船から変更する用)
     public virtual void Create(Vector2 vec,float velocity)
     {
@@ -65,7 +59,8 @@ public class CannonBall : MonoBehaviour
         this.velocity = velocity;
     }
     
-    protected GameObject MyBom;//継承先からのthis.gameObject省略用
+    //継承先からのthis.gameObject省略用
+    protected GameObject MyBom;
 
     private void Awake()
     {
@@ -105,6 +100,9 @@ public class CannonBall : MonoBehaviour
     {
         //途中でどちらかが消えてしまった中断
         if (target == null || attacker == null) return;
+        //弾の火力に、発射元の火力を加算
+        attack.power += attacker.gameObject.GetComponent<Ship>().Power / 100;
+        //目標を設定
         target_vec = (target.transform.position - attacker.transform.position).normalized;
     }
     
@@ -133,6 +131,15 @@ public class CannonBall : MonoBehaviour
 
     //砲撃向き設定
     public void SetDirection(Vector2 direction)
+    {
+        
+    }
+
+    /// <summary>
+    /// 発射元からの火力を加算
+    /// </summary>
+    /// <param name="power"></param>
+    public void AddPower(int power)
     {
         
     }

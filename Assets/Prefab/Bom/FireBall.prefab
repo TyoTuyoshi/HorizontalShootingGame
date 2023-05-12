@@ -19383,8 +19383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb270319d3bfee46b4e3f837dc7c519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanContinous: 1
-  ContinuousCanon:
+  attack:
     contisous: 36
-    power: 200
+    power: 15
   velocity: 25

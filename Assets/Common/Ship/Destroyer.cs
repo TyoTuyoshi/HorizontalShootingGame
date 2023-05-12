@@ -60,7 +60,7 @@ public class Destroyer : Ship
         //発射時の座標
 
         //連射回数
-        int n = CannonBalls[0].ContinuousCanon.contisous;
+        int n = CannonBalls[0].attack.contisous;
 
         //演算用円周率
         float pi = Mathf.PI;

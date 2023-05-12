@@ -88,10 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f6eb0ae85d2ff4fac4dcf5afbf019a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanContinous: 0
-  ContinuousCanon:
+  attack:
     contisous: 36
-    power: 20
+    power: 12
   velocity: 25
   wait_time: 1.5
 --- !u!212 &7632342486427368946

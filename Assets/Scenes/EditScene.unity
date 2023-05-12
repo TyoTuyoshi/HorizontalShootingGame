@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipDB:
-  - {fileID: 7798072501007229324, guid: 3d9c09a3cb3e04544af5b24a4e6b1048, type: 3}
-  - {fileID: 6262307430225827532, guid: 2e4f190713525cb4da728418d8062962, type: 3}
-  - {fileID: 7907365584155756206, guid: fef30fae0061d3949a31e75d7fd3beae, type: 3}
+  - {fileID: 8657432493437217087, guid: 3d9c09a3cb3e04544af5b24a4e6b1048, type: 3}
+  - {fileID: 3321880675427107311, guid: 2e4f190713525cb4da728418d8062962, type: 3}
+  - {fileID: 4184476763654981543, guid: fef30fae0061d3949a31e75d7fd3beae, type: 3}
 --- !u!4 &139614244
 Transform:
   m_ObjectHideFlags: 0

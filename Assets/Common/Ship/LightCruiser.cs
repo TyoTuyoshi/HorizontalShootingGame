@@ -68,7 +68,7 @@ public class LightCruiser :Ship
         Debug.Log(Name + ":固有弾幕展開!");
 
         //連射回数
-        int n = CannonBalls[2].ContinuousCanon.contisous;
+        int n = CannonBalls[2].attack.contisous;
 
         int offset = -90;
 
@@ -82,14 +82,22 @@ public class LightCruiser :Ship
             //発射する弾
             var ball = Instantiate(CannonBalls[2]) as CannonBall_Late;
             ball.SetPositionLayer(IsEnemy);
-            ball.SetTarget(Target.gameObject, this.gameObject);
-            //円形状に弾を配置
-            ball.SetPosition(pos +
-                             new Vector3(
-                                 2 * Mathf.Cos((i * 10 + offset) * pi / 180),
-                                 2 * Mathf.Sin((i * 10 + offset) * pi / 180)));
-            //発射するまで親子関係で追従
-            ball.transform.parent = this.gameObject.transform;
+            try
+            {
+                ball.SetTarget(Target.gameObject, this.gameObject);
+                //円形状に弾を配置
+                ball.SetPosition(pos +
+                                 new Vector3(
+                                     2 * Mathf.Cos((i * 10 + offset) * pi / 180),
+                                     2 * Mathf.Sin((i * 10 + offset) * pi / 180)));
+                //発射するまで親子関係で追従
+                ball.transform.parent = this.gameObject.transform;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                break;
+            }
         }
     }
 

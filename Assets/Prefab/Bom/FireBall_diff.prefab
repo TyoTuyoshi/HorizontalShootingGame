@@ -19436,7 +19436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96b6a8ce5177084b8bedca19caa50f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContinuousCanon:
-    contisous: 36
-    power: 20
+  attack:
+    contisous: 6
+    power: 10
   velocity: 10

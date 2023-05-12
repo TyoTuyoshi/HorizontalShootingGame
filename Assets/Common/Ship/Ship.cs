@@ -3,6 +3,7 @@ using System.Collections;
 using Manager;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -149,6 +150,11 @@ public class Ship : MonoBehaviour
 
     protected GameObject MyShip; //継承先からのthis.gameObject省略用
 
+    [SerializeField] protected Slider DurableBar;//耐久表示バー
+
+    //開始時の最大耐久値(初期値)
+    protected int MaxDurable;
+    
     //演算用円周率
     protected float pi = Mathf.PI;
     private void Awake()
@@ -157,27 +163,37 @@ public class Ship : MonoBehaviour
         MyShip = this.gameObject;
         rbody = this.gameObject.GetComponent<Rigidbody2D>();
         Renderer = this.gameObject.GetComponent<SpriteRenderer>();
-
+        MaxDurable = durable;
+        Debug.Log($"max = {MaxDurable}");
+        
+        //固有弾幕待ち時間の設定
         if (!is_unique)
         {
             UniqueCharge *= 5;
         }
     }
 
-    //移動
-    public void Move(Vector2 pos, float speed)
+    /// <summary>
+    ///　上下左右移動 
+    /// </summary>
+    /// <param name="vec">移動先ベクトル</param>
+    /// <param name="speed">速度</param>
+    public void Move(Vector2 vec, float speed)
     {
         //ship_state = State.Move;
         const float coefficient = 1.5f; //速力係数
-        rbody.MovePosition(MyShip.transform.position + (Vector3)pos * coefficient * speed * Time.fixedDeltaTime);
+        rbody.MovePosition(MyShip.transform.position + (Vector3)vec * coefficient * speed * Time.fixedDeltaTime);
         //rbody.AddForce(pos * coefficient * speed * Time.deltaTime, ForceMode2D.Impulse);
         MyShip.transform.position = PositionRange(MyShip.transform.position, move_range.MinPos, move_range.MaxPos);
     }
 
-    //追従移動
+    /// <summary>
+    ///　追従移動 
+    /// </summary>
+    /// <param name="pos">移動先座標</param>
+    /// <param name="distance">間隔</param>
     public void MoveFollowing(Vector2 pos,float distance)
     {
-        //ship_state = State.Move;
         const float speed = 1.5f;
         //一定距離外であるときに追従
         if (Vector2.Distance(pos, MyShip.transform.position) > distance)
@@ -187,7 +203,9 @@ public class Ship : MonoBehaviour
         }
     }
 
-    //破棄
+    /// <summary>
+    ///　破棄 
+    /// </summary>
     public void Destory()
     {
         //味方が敵を倒したとき
@@ -195,13 +213,22 @@ public class Ship : MonoBehaviour
         UnityEngine.Object.Destroy(this.gameObject);
     }
 
-    //攻撃時前面表示
+    /// <summary>
+    ///攻撃時前面表示
+    /// </summary>
+    /// <param name="can_attack">攻撃フラグ</param>
     protected void SortDrawOrder(bool can_attack)
     {
         Renderer.sortingOrder = (can_attack) ? 1 : 0;
     }
 
-    //座標クランプ
+    /// <summary>
+    /// 移動範囲制限関数
+    /// </summary>
+    /// <param name="now_pos">現在の座標</param>
+    /// <param name="min">左下最小座標</param>
+    /// <param name="max">右上最大座標</param>
+    /// <returns>修正座標</returns>
     private Vector2 PositionRange(Vector2 now_pos, Vector2 min, Vector2 max)
     {
         Vector2 pos = new Vector2();
@@ -218,7 +245,7 @@ public class Ship : MonoBehaviour
     /// <param name="interval">発射周期(待ち時間)</param>
     public IEnumerator Bombardment(CannonBall cannon_ball, int n, float interval)
     {
-        Debug.Log(Name + ":発射!");
+        //Debug.Log(Name + ":発射!");
 
         for (int i = 0; i < n; i++)
         {
@@ -268,40 +295,27 @@ public class Ship : MonoBehaviour
     }
 
     public virtual async void Bombardment2() { }//基底　砲撃メソッド
-
     public virtual void TorpedoLaunch() { ship_state = State.Battle;}//基底　魚雷発射メソッド
     public virtual void AirStrike(){ ship_state = State.Move; }//基底　空爆メソッド
-
-    /*
-    public void OnTriggerEnter(Collider other)
-    {
-        //ダメージ判定
-    }*/
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         HitDamage(col);
     }
 
-    //ダメージ判定
+    /// <summary>
+    /// ダメージ判定
+    /// </summary>
+    /// <param name="col">衝突オブジェクト</param>
     private void HitDamage(Collider2D col)
     {
-        //味方目線 ダメージ判定
-        durable -= 10;
-        /*
-        if (!is_enemy)
-        {
-            GameManager.instance.score += 10;
-        }*/
-    }
-}
+        //当たった弾の火力分ダメージを受ける。
+        int damage = col.gameObject.GetComponent<CannonBall>().attack.power;
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(Ship))]
-public class Inspector: Editor
-{
-    public override void OnInspectorGUI()
-    {
+        Debug.Log(damage);
+        //ダメージヒット
+        durable -= 10;
+        //耐久値バーの更新
+        if (!is_enemy) DurableBar.value = durable / (float)MaxDurable;
     }
 }
-#endif
