@@ -27,6 +27,12 @@ public class Destroyer : Ship
     {
         if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
 
+        if (Durable <= 0)
+        {
+            Durable = 0;
+            ShipState = State.Sunk;
+        }
+        
         //砲撃時間の加算
         bom_time = bom_time.Select(i => i + Time.deltaTime).ToArray();
         

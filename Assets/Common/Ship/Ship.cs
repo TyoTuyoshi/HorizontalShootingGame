@@ -165,7 +165,13 @@ public class Ship : MonoBehaviour
         Renderer = this.gameObject.GetComponent<SpriteRenderer>();
         MaxDurable = durable;
         Debug.Log($"max = {MaxDurable}");
-        
+
+        //敵の場合1.2倍の大きさ
+        if (is_enemy)
+        {
+            MyShip.transform.localScale *= 1.2f;
+        }
+
         //固有弾幕待ち時間の設定
         if (!is_unique)
         {
@@ -310,12 +316,18 @@ public class Ship : MonoBehaviour
     private void HitDamage(Collider2D col)
     {
         //当たった弾の火力分ダメージを受ける。
-        int damage = col.gameObject.GetComponent<CannonBall>().attack.power;
-
-        Debug.Log(damage);
-        //ダメージヒット
-        durable -= 10;
-        //耐久値バーの更新
-        if (!is_enemy) DurableBar.value = durable / (float)MaxDurable;
+        try
+        {
+            int damage = col.gameObject.GetComponent<CannonBall>().attack.power;
+            Debug.Log(damage);
+            //ダメージヒット
+            durable -= 10;
+            //耐久値バーの更新
+            DurableBar.value = durable / (float)MaxDurable;
+        }
+        catch (Exception e)
+        {
+            return;
+        }
     }
 }
