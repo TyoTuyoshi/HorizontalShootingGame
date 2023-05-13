@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack:
     contisous: 36
-    power: 10
+    power: 15
   velocity: 25
 --- !u!1 &8142927748567249800
 GameObject:

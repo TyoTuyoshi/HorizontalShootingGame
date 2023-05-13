@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Manager;
+using TMPro;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -151,7 +154,9 @@ public class Ship : MonoBehaviour
     protected GameObject MyShip; //継承先からのthis.gameObject省略用
 
     [SerializeField] protected Slider DurableBar;//耐久表示バー
-
+    [SerializeField] protected GameObject[] DamageObj;//ダメージ表示用のテキスト
+    protected int dmgshow_index = 0;
+    
     //開始時の最大耐久値(初期値)
     protected int MaxDurable;
     
@@ -290,6 +295,9 @@ public class Ship : MonoBehaviour
             var vec = radius * new Vector3(
                 Mathf.Cos(theta),
                 Mathf.Sin(theta));
+
+            //敵の場合逆方向に発射
+            if (is_enemy) vec *= -1;
             
             ball.transform.LookAt(vec);
             
@@ -318,12 +326,35 @@ public class Ship : MonoBehaviour
         //当たった弾の火力分ダメージを受ける。
         try
         {
-            int damage = col.gameObject.GetComponent<CannonBall>().attack.power;
-            Debug.Log(damage);
+            int damage = col.gameObject.GetComponent<CannonBall>().attack.power + Random.Range(-5, 5);
             //ダメージヒット
-            durable -= 10;
+            durable -= damage;
+            if (durable < 0) durable = 0;
+            
+            float bar_val = durable / (float)MaxDurable;
             //耐久値バーの更新
-            DurableBar.value = durable / (float)MaxDurable;
+            DurableBar.value = bar_val;
+            
+            //ゲーム画面上部の攻撃した敵情報
+            if (is_enemy)
+            {
+                GameSceneManager.Instance.DurableBar.value = bar_val;
+                GameSceneManager.Instance.DurableBar.title = $"{name} / {durable}";
+            }
+
+            //ダメージのテキストオブジェクト
+            GameObject current_dmg = DamageObj[dmgshow_index];
+            current_dmg.SetActive(true);
+            //ばらつかせて配置
+            float rumble = 1.3f;
+            current_dmg.transform.position =
+                MyShip.transform.position +
+                new Vector3(Random.Range(-rumble, rumble), Random.Range(-rumble, rumble));
+            //ダメージの表示
+            current_dmg.GetComponent<TextMeshPro>().text = damage.ToString();
+            //ダメージ表示オブジェクトの入れ替え
+            dmgshow_index++;
+            dmgshow_index %= DamageObj.Length;
         }
         catch (Exception e)
         {

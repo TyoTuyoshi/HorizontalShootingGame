@@ -95,15 +95,8 @@ public class LightCruiser :Ship
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 break;
             }
         }
-    }
-
-    //魚雷攻撃
-    public override void TorpedoLaunch()
-    {
-        
     }
 }

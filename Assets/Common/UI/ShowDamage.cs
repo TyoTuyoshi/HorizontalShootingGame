@@ -1,29 +1,24 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class ShowDamage : MonoBehaviour
 {
-    [System.NonSerialized] public float damage = 100;
-    private TextMeshPro damage_mesh;
-
-    private GameObject damage_obj;
-    void Start()
-    {
-        damage_obj = this.gameObject;
-        damage_mesh = damage_obj.GetComponent<TextMeshPro>();
-        damage_mesh.text = $"{damage}";
-    }
-
+    //SetActive()をShipから呼び出す。
     private void OnEnable()
     {
-        StartCoroutine(ObjectOFF());
+        this.gameObject.GetComponent<MeshRenderer>().sortingLayerName = "UI";
+        StartCoroutine(ActiveOFF(0.15f));
     }
 
-    private IEnumerator ObjectOFF()
+    /// <summary>
+    /// 一定時間後に非表示
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ActiveOFF(float time)
     {
-        yield return new WaitForSecondsRealtime(0.5f);
-        damage_obj.SetActive(false);
+        yield return new WaitForSecondsRealtime(time);
+        gameObject.GetComponent<TextMeshPro>().text = "";
+        gameObject.SetActive(false);
     }
 }

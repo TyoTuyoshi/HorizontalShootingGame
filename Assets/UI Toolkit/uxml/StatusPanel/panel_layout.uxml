@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Button display-tooltip-when-elided="true" name="btn_ship" style="height: 237px; width: 233px; position: relative; top: 4px; left: 548px;">
-        <ui:Label text="艦名　：&#10;艦種　：&#10;耐久値：&#10;火力　：&#10;装填　：" display-tooltip-when-elided="true" name="lb_status" style="position: absolute; top: 135px; left: 20px; height: 93px; width: 185px; -unity-text-align: upper-left; color: rgb(0, 0, 0); white-space: nowrap;" />
+    <ui:Button display-tooltip-when-elided="true" name="btn_ship" style="height: 237px; width: 233px; position: relative; top: 4px; left: 548px; -unity-font: url(&apos;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#Arial&apos;);">
+        <ui:Label text="艦名　：&#10;艦種　：&#10;耐久値：&#10;火力　：&#10;装填　：" display-tooltip-when-elided="true" name="lb_status" style="position: absolute; top: 135px; left: 20px; height: 93px; width: 185px; -unity-text-align: upper-left; color: rgb(0, 0, 0); white-space: nowrap; -unity-font: url(&apos;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#Arial&apos;);" />
         <ui:VisualElement name="img_icon" style="height: 133px; background-image: none;" />
     </ui:Button>
 </ui:UXML>

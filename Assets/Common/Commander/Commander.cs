@@ -103,11 +103,23 @@ public class Commander : MonoBehaviour
     //ゲーム更新
     private void UpdateGame()
     {
+        //全滅フラグオン
+        if (MyShips.Count == 0) Annihilation = true;
         //バトルが終了ならリターン
         if (GameSceneManager.Instance.State == GameSceneManager.BattleState.Finish) return;
         //艦隊が減るほどスピードが早くなる
         speed = ShipSpeed(MyShips);
         time += Time.deltaTime;
+
+        //カメラの追従対象に指定
+        try
+        {
+            TrackingCamera.Instance.Target = MyShips[0].gameObject;
+        }
+        catch (Exception e)
+        {
+            return;
+        }
 
         //砲撃対象の指揮
         //各艦船からの最近距離の敵をマーク
@@ -133,14 +145,6 @@ public class Commander : MonoBehaviour
                 }
             }
         }
-        
-        //全滅判定
-        if (MyShips.Count == 0)
-        {
-            Debug.Log("全滅...");
-            Annihilation = true;
-        }
-
         //撃沈判定
         for (int i = MyShips.Count - 1; i >= 0; i--)
         {

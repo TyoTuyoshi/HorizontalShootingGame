@@ -58,7 +58,6 @@ public class HeavyCruiser : Ship
     //黄金長方形弾幕展開(固有弾幕)
     private IEnumerator BombardmentGoldenRectangle()
     {
-        //ShipState = Ship.State.Battle;
         Debug.Log(Name + ":固有弾幕展開!");
 
         //連射回数
@@ -72,11 +71,5 @@ public class HeavyCruiser : Ship
             ball.SetPositionLayer(IsEnemy);
             ball.Create(MyShip.transform.position, 1);
         }
-    }
-
-    //魚雷攻撃
-    public override void TorpedoLaunch()
-    {
-        
     }
 }

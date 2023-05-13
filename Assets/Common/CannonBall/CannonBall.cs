@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CannonBall : MonoBehaviour
@@ -101,7 +102,8 @@ public class CannonBall : MonoBehaviour
         //途中でどちらかが消えてしまった中断
         if (target == null || attacker == null) return;
         //弾の火力に、発射元の火力を加算
-        attack.power += attacker.gameObject.GetComponent<Ship>().Power / 100;
+        //ランダムな値を加算
+        attack.power += attacker.gameObject.GetComponent<Ship>().Power / 100 + Random.Range(-10, 10);
         //目標を設定
         target_vec = (target.transform.position - attacker.transform.position).normalized;
     }
@@ -131,15 +133,6 @@ public class CannonBall : MonoBehaviour
 
     //砲撃向き設定
     public void SetDirection(Vector2 direction)
-    {
-        
-    }
-
-    /// <summary>
-    /// 発射元からの火力を加算
-    /// </summary>
-    /// <param name="power"></param>
-    public void AddPower(int power)
     {
         
     }
