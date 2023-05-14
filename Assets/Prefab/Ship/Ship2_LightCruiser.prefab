@@ -299,7 +299,7 @@ MonoBehaviour:
   charge: 3
   power: 300
   avoidance: 500
-  name: "\u8EFD\u5DE1\u8266"
+  name: "\u8EFD\u5DE11"
   ship_type: 1
   ship_state: 0
   is_unique: 1

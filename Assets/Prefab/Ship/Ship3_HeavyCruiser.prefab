@@ -233,7 +233,7 @@ MonoBehaviour:
   charge: 4
   power: 490
   avoidance: 0
-  name: "\u91CD\u5DE1\u8266"
+  name: "\u91CD\u5DE11"
   ship_type: 2
   ship_state: 0
   is_unique: 1

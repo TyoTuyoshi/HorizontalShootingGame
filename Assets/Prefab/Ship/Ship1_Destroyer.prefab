@@ -325,7 +325,7 @@ MonoBehaviour:
   charge: 2
   power: 200
   avoidance: 500
-  name: "\u99C6\u9010\u8266"
+  name: "\u99C6\u90101"
   ship_type: 0
   ship_state: 0
   is_unique: 1
