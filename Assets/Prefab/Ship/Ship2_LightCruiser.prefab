@@ -295,7 +295,7 @@ MonoBehaviour:
   - {fileID: 931903406613341720, guid: d12b64d93d96e334694a39ff720c112b, type: 3}
   - {fileID: 8967061550443976450, guid: 936a6b7f878b89f44a423030501a5cb5, type: 3}
   is_enemy: 0
-  durable: 3500
+  durable: 3000
   charge: 3
   power: 300
   avoidance: 500
